@@ -37,7 +37,7 @@ let input3 = document.querySelector(".inputCombo3");
 let ar1 = document.querySelector(".ar1");
 let ar2 = document.querySelector(".ar2");
 let ar3 = document.querySelector(".ar3");
-// let arrow = document.querySelector(".toggleArrow");
+ //let arrow = document.querySelector(".toggleArrow");
 
 //Création des const de tableaux
 let component = [];
@@ -85,23 +85,26 @@ let sortedUstensile = cookingTools.sort();
 let sortedAppareils = appliance.sort();
 
 //Création d'un tableau avec les combos
-const combos = [
+let combos = [
   { input: input, list: sortedIngredients, arrow: ar1 },
   { input: input2, list: sortedAppareils, arrow: ar2 },
   { input: input3, list: sortedUstensile, arrow: ar3 },
 ];
-//console.log(combos);//sort 3 objets avec le combo,
-// la arrow et la liste triée, pour chaque catégorie.
+console.log(combos);/*sort 3 objets avec le combo,
+ la arrow et la liste triée, pour chaque catégorie.*/
 
 /************************************************************** */
+
+
 //Création d'une liste "li"
 function createItem(parent, listing) {
   //Création d'un élément li
   let listItem = document.createElement("li");
- 
   listItem.classList.add("list-items");
   listItem.style.cursor = "pointer";
-  listItem.addEventListener("click", displayTags.bind(null, listing, listItem));//récupérer parent sur dislayTags pour color (if)
+  listItem.addEventListener("click", () =>
+    displayTags(listing)
+  );//récupérer parent sur dislayTags pour color (if)
   let word = listing;
   //afficher la valeur de chaque éléments
   listItem.innerText = word;
@@ -109,12 +112,16 @@ function createItem(parent, listing) {
   parent.querySelector(".ulCombo").appendChild(listItem);
   // console.log(listItem);//ressort une liste
 }
+
 /*************************************************************** */
+
 //Ressort la liste complète de chaque élément "list" au click sur le combo
 function displayList() {
   for (let combo of combos) {
+    
     combo.input.addEventListener("click", () => {
       combo.arrow.classList.toggle("toggleArrow");
+    
 
       removeList();
 
@@ -124,22 +131,23 @@ function displayList() {
         combo.input.style.borderRadius = "5px 5px 0 0";
       }
 
-     
+     keyboardList();
 
-      keyboardList();
     });
-    combo.arrow.addEventListener("click", () => {
-      combo.arrow.classList.toggle("toggleArrow");
+    combo.arrow.addEventListener("click", () => {  
+       combo.arrow.classList.toggle("toggleArrow");
       const listes = document.querySelectorAll(".list-items");
       if (listes.length == 0) {
-        for (let listing of combo.list) {
-          
+    //  for (let listing of combo.list) {
+     
           const parent = combo.input.closest("form");
           createItem(parent, listing);
           combo.input.style.borderRadius = "5px 5px 0 0";
-        }
+      //  }
       } else {
+        
         removeList();
+        
       }
     });
   }
@@ -147,20 +155,10 @@ function displayList() {
 }
 displayList();
 
-// window.addEventListener("click", (e) => {
-//  // console.log(e.target);
-//    for (let combo of combos) {
-//   if(e.target == displayList) {
-//      displayList.display = "none"
-// combo.arrow.classList.toggle("toggleArrow");
-//   }
-// }
-// });
-
 function keyboardList() {
   for (let combo of combos) {
     combo.input.addEventListener("keyup", () => {
-      removeList(false)
+      removeList(false) 
       for (let listing of combo.list) {
         if (
           listing.toLowerCase().startsWith(combo.input.value.toLowerCase()) &&
@@ -180,10 +178,11 @@ function keyboardList() {
 //Fermeture de items (liste ingredients, ustensiles, appareils) ouvert
 function removeList(init = true) {
   let items = document.querySelectorAll(".list-items");
-
+ 
   items.forEach((item) => {
     item.remove();
     if (init) {
+ 
       initCombo();
       
     }//console.log(items);
@@ -199,8 +198,8 @@ function initCombo() {
   }
 }
 
-
+  // arrow.style.transform = "rotate(0deg)";
 // arrow.classList.toggle("toggleArrow");
 //window.addEventListener("click", function(event) {});
 
-//https://www.codegrepper.com/code-examples/javascript/localstorage+array+push
+

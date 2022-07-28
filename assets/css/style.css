@@ -357,7 +357,7 @@ input:focus::placeholder {
   height: 37px;
   line-height: 37px;
   margin-right: 6px;
-  /* margin-top: 15px; */
+ filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.4))
 }
 .wrapperCombo {
   position: relative;

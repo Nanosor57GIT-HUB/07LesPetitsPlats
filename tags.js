@@ -1,96 +1,99 @@
 //localStorage.clear();
 
+//Création, affichage et fermeture des tags
 function displayTags(value) {
-  //Création d'une classe unique et récupération couleur pour chaque tag
   const colorTags = document.querySelectorAll(".ulCombo");
+  //  console.log(colorTags);
 
-//  console.log(colorTags);
+  for (let color of colorTags) {
+    console.log(color);
+    // color.addEventListener("click", () => {
+    let listTags = document.createElement("li");
+    listTags.classList.add("list-tags");
+    listTags.innerText = value;
 
-  function displayColorTag() {
-    for (let color of colorTags) {
-      //ajout d'une classe aux listes et aux tags par catégorie (ingredients, appareils et ustensiles)
-      color.addEventListener("click", () => {
-        let listTags = document.createElement("li");
-        listTags.classList.add("list-tags");
-        listTags.innerText = value;
-
-        if (color.classList.contains("bgListCombo1")) {
-          console.log(color);
-          listTags.classList.add("ingTag");
-          console.log(listTags);
-        } else if (color.classList.contains("bgListCombo2")) {
-          console.log(color);
-          listTags.classList.add("appTag");
-          console.log(listTags);
-        } else if (color.classList.contains("bgListCombo3")) {
-          console.log(color);
-          listTags.classList.add("ustTag");
-          console.log(listTags);
-        }
-
-        let closeTags = document.createElement("img");
-        closeTags.src = "./assets/images/times-circle-regular.svg";
-        closeTags.classList.add("closedtag");
-        closeTags.style.cursor = "pointer";
-        listTags.appendChild(closeTags);
-        closeTags.addEventListener("click", () => {
-          listTags.remove();
-        });
-        const tags = document.querySelector(".tags").appendChild(listTags);
-        removeList();
-        console.log(tags);
-        console.log(listTags);
-        delete listTags
-      });
+    //Insertion d'une classe pour chaque tag associé aux listes(ingredients, appareils et ustensiles)
+    if (color.classList.contains("bgListCombo1")) {
+      console.log(color);
+      listTags.classList.add("ingTag");
+      console.log(listTags);
+    } else if (color.classList.contains("bgListCombo2")) {
+      console.log(color);
+      listTags.classList.add("appTag");
+      console.log(listTags);
+    } else if (color.classList.contains("bgListCombo3")) {
+      console.log(color);
+      listTags.classList.add("ustTag");
+      console.log(listTags);
     }
 
+    //Fermeture des tags
+    let closeTags = document.createElement("img");
+    closeTags.src = "./assets/images/times-circle-regular.svg";
+    closeTags.classList.add("closedtag");
+    closeTags.style.cursor = "pointer";
+    listTags.appendChild(closeTags);
+    closeTags.addEventListener("click", () => {
+      listTags.remove();
+    });
+
+    const tags = document.querySelector(".tags").appendChild(listTags);
+
+    removeList();
+
+    // storageTags(value, listTags);
+    // console.log(tags);
+    //  console.log(listTags);
+    // delete listTags
+    // });
   }
-  displayColorTag();
-  /************************************************************************** */
-  //storageTags(listTags);
-  /******************************************************* */
-  // parent().siblings().removeClass("active").end().addClass("active");
-  /****************************************************** */
-
-  //Stockage liste des tags affichés
-
-  // localStorage.setItem("tags", listTags.innerText);
-  //console.log(localStorage);
-  // localStorage.getItem("tags");
-  // console.log(localStorage);
-
-  //Création du close tags et de leurs fermeture
 }
-//listTags et tags ressortent la même chose
-function storageTags(listTags) {
+/************************************************************************** */
+//storageTags(listTags);
+/******************************************************* */
+// parent().siblings().removeClass("active").end().addClass("active");
+/****************************************************** */
+
+function storageTags(value, listTags) {
   let ingStorage = [];
   let appStorage = [];
   let ustStorage = [];
 
-  ingStorage[0] = listTags.classList.contains("ingTag");
-  appStorage[0] = listTags.classList.contains("appTag");
-  ustStorage[0] = listTags.classList.contains("ustTag");
-  localStorage.setItem("ingStorage", JSON.stringify(listTags.innerText));
-  localStorage.setItem("appStorage", JSON.stringify(listTags.innerText));
-  localStorage.setItem("ustStorage", JSON.stringify(listTags.innerText));
-  let storedNames = JSON.parse(localStorage.getItem("ingStorage"));
+  if ((ingStorage[0] = listTags.classList.contains("ingTag"))) {
+    ingStorage.push(value);
+    localStorage.setItem("ingStorage", JSON.stringify(ingStorage));
 
-  console.log(storedNames);
+    let storedNames = JSON.parse(localStorage.getItem("ingStorage"));
+    storedNames.push(value);
+    // storedNames = storedNames == null ? storedNames : []
+    //  storedNames.push(ingStorage)
+    localStorage.setItem("ingStorage", JSON.stringify(storedNames));
+
+    //ingStorage.push(value);
+  }
+  if ((appStorage[0] = listTags.classList.contains("appTag"))) {
+    localStorage.setItem("appStorage", JSON.stringify(value));
+  }
+  if ((ustStorage[0] = listTags.classList.contains("ustTag"))) {
+    localStorage.setItem("ustStorage", JSON.stringify(value));
+  }
+
+  // console.log(storedNames);
   // console.log(localStorage);
   //Comment pousser dans un tableau localStorage
   /*********************************** */
   // Obtenir les données existantes
-  let existing = JSON.parse(localStorage.getItem("ingStorage"));
-  console.log(existing);
+  // let existing = JSON.parse(localStorage.getItem("ingStorage"));
+  // console.log(existing);
   // S'il n'y a pas de données existantes, créez un tableau
   // Sinon, convertir la chaîne localStorage en un tableau
-  existing = existing ? existing.split(", ") : [];
+  // existing = existing ? existing.split(", ") : [];
 
   // Ajouter de nouvelles données à localStorage Array
-  existing.push(listTags.innerText);
-  console.log(existing); //ressort un tableau ingStorage (2 x le même)
+  //existing.push(value);
+  // console.log(existing); //ressort un tableau ingStorage (2 x le même)
   // Enregistrer dans localStorage
-  localStorage.setItem("ingStorage", existing.toString());
+  //localStorage.setItem("ingStorage", existing.toString());
   // console.log(localStorage);
 }
 /*********************************************************** */
