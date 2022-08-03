@@ -23,17 +23,28 @@ const searchInput = document.querySelector("#search");
 
   searchInput.addEventListener("keyup",  (e) => {
     console.log(e.target.value);
-    const input = searchInput.value;//e.target.value
+    const input = searchInput.value; //e.target.value
 
-   const filtered = array
-      .filter(
-        (item) =>
-          item.name.toLowerCase().includes(input.toLowerCase()) ||
-          item.description.toLowerCase().includes(input.toLowerCase())
-      )
+    const filtered = array.filter(
+      (item) =>
+        item.name.toLowerCase().includes(input.toLowerCase()) ||
+        item.description.toLowerCase().includes(input.toLowerCase())
+    );
     //Mettre la fonction qui récupère les cards
-  
-      console.log(filtered);
+    //createcardRecipe(filtered);
+    console.log(filtered);
+
+    if (!filtered.length) {
+      const err = document.querySelector(".error").innerHTML;
+      
+      console.log(err);
+     }  else if (e.target.value.length >= 3) {
+      
+        console.log(filtered);
+    
+      }
+    
+    //https://github.com/damevin/Les-petits-plats/tree/main/scripts/utils
   });
 
 //------------------------------------------------------------------------------

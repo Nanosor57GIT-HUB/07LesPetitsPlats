@@ -20,8 +20,6 @@ document.querySelector(
 
 const searchInput = document.querySelector("#search");
 
-
-
 searchInput.addEventListener("keyup", function () {
   const input = searchInput.value;
 
@@ -33,6 +31,6 @@ searchInput.addEventListener("keyup", function () {
 
    
 
-  results.forEach((cardRecipes) => cardRecipes );
+  results.forEach((cardRecipes) => cardRecipes.innerHTML );
 ;
 });

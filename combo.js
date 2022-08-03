@@ -1,4 +1,6 @@
 //Création du DOM
+localStorage.clear();
+
 document.querySelector(".containerCombo").innerHTML = ` 
 <div class="combo">
          <form autocomplete="off">
@@ -37,7 +39,7 @@ let input3 = document.querySelector(".inputCombo3");
 let ar1 = document.querySelector(".ar1");
 let ar2 = document.querySelector(".ar2");
 let ar3 = document.querySelector(".ar3");
- //let arrow = document.querySelector(".toggleArrow");
+let arrow = document.querySelector(".toggleArrow");
 
 //Création des const de tableaux
 let component = [];
@@ -90,21 +92,130 @@ let combos = [
   { input: input2, list: sortedAppareils, arrow: ar2 },
   { input: input3, list: sortedUstensile, arrow: ar3 },
 ];
-console.log(combos);/*sort 3 objets avec le combo,
+/*console.log(combos);*/ /*sort 3 objets avec le combo,
  la arrow et la liste triée, pour chaque catégorie.*/
 
 /************************************************************** */
 
-
 //Création d'une liste "li"
 function createItem(parent, listing) {
-  //Création d'un élément li
+  // Création d'un élément li
   let listItem = document.createElement("li");
   listItem.classList.add("list-items");
   listItem.style.cursor = "pointer";
-  listItem.addEventListener("click", () =>
-    displayTags(listing)
-  );//récupérer parent sur dislayTags pour color (if)
+  //  listItem.addEventListener("click", displayTags.bind(null, listing, listItem)
+
+  listItem.addEventListener("click", function () {
+    console.log(listItem);
+    console.log(listItem.parentNode);
+    if (localStorage.getItem("pp_Memory") == null) {
+      let memoire = {
+        ingredients: [],
+        appareils: [],
+        ustensiles: [],
+      };
+      localStorage.setItem("pp_Memory", JSON.stringify(memoire));
+    }
+
+    let temp = JSON.parse(localStorage.getItem("pp_Memory"));
+    if (listItem.parentNode.classList.contains("bgListCombo1")) {
+      temp.ingredients.push(listItem.innerHTML);
+    }
+    if (listItem.parentNode.classList.contains("bgListCombo2")) {
+      temp.appareils.push(listItem.innerHTML);
+    }
+    if (listItem.parentNode.classList.contains("bgListCombo3")) {
+      temp.ustensiles.push(listItem.innerHTML);
+    }
+
+    localStorage.setItem("pp_Memory", JSON.stringify(temp));
+
+    document.querySelector(".tags").innerHTML = "";
+
+   
+
+    function testeur() {
+      // console.log(listTags);
+      // console.log(temp);
+
+      temp.ingredients.forEach((ing) => {
+
+        //CreateTags Ustensiles
+        let listTags = document.createElement("li"); //sortir
+        listTags.classList.add("list-tags"); //sortir
+        listTags.classList.add("ingTag");
+        listTags.innerText = ing;
+        document.querySelector(".tags").append(listTags); //sortir
+
+        //CreateCloseTags ingredients
+        let closeTags = document.createElement("img"); //sortir
+        closeTags.src = "./assets/images/times-circle-regular.svg"; //sortir
+        closeTags.classList.add("closedTag"); //sortir
+        closeTags.classList.add("closedIngTag");
+        closeTags.style.cursor = "pointer"; //sortir
+        listTags.appendChild(closeTags); //sortir
+      });
+
+      temp.appareils.forEach((app) => {
+
+        //CreateTags Ustensiles
+        let listTags = document.createElement("li");
+        listTags.classList.add("list-tags");
+        listTags.classList.add("appTag");
+        listTags.innerText = app;
+        document.querySelector(".tags").append(listTags);
+
+        //CreateCloseTags Appareils
+        let closeTags = document.createElement("img");
+        closeTags.src = "./assets/images/times-circle-regular.svg";
+        closeTags.classList.add("closedTag");
+        closeTags.classList.add("closedAppTag");
+        closeTags.style.cursor = "pointer";
+        listTags.appendChild(closeTags);
+      });
+
+      temp.ustensiles.forEach((ust) => {
+
+        //CreateTags Ustensiles
+        let listTags = document.createElement("li");
+        listTags.classList.add("list-tags");
+        listTags.classList.add("ustTag");
+        listTags.innerText = ust;
+        document.querySelector(".tags").append(listTags);
+
+        //CreateCloseTags Ustensiles
+        let closeTags = document.createElement("img");
+        closeTags.src = "./assets/images/times-circle-regular.svg";
+        closeTags.classList.add("closedTag");
+        closeTags.classList.add("closedUstTag");
+        closeTags.style.cursor = "pointer";
+        listTags.appendChild(closeTags);
+
+        /************************************************************************ */
+
+        // let temp = JSON.parse(localStorage.getItem("pp_Memory"));
+        // Object.keys(localStorage).forEach(function (temp) {
+
+        //   localStorage.getItem(temp);
+        //   console.log(localStorage);
+
+        //  localStorage.removeItem("pp_Memory");
+        //  console.log(localStorage);
+
+        //  console.log(temp);
+        // });
+
+        //  localStorage.removeItem("listTags");
+        //          console.log(localStorage);
+        localStorage.setItem("pp_Memory", JSON.stringify(temp));
+        //   console.log(localStorage);
+      });
+    }
+    testeur();
+  });
+
+  // );
+
   let word = listing;
   //afficher la valeur de chaque éléments
   listItem.innerText = word;
@@ -115,13 +226,15 @@ function createItem(parent, listing) {
 
 /*************************************************************** */
 
+
+
 //Ressort la liste complète de chaque élément "list" au click sur le combo
 function displayList() {
   for (let combo of combos) {
-    
-    combo.input.addEventListener("click", () => {
+    combo.input.addEventListener("click", () => {   
       combo.arrow.classList.toggle("toggleArrow");
-    
+      // console.log(combo.list);
+     
 
       removeList();
 
@@ -131,41 +244,42 @@ function displayList() {
         combo.input.style.borderRadius = "5px 5px 0 0";
       }
 
-     keyboardList();
+      keyboardList();
+    });
+   
+     combo.arrow.addEventListener("click", () => {
+     combo.arrow.classList.toggle("toggleArrow");
+    //   console.log(e.target);
+    //   //   const listes = document.querySelectorAll(".list-items");
+    //   //   if (listes.length == 0) {
+    //   // //  for (let listing of combo.list) {
 
-    });
-    combo.arrow.addEventListener("click", () => {  
-       combo.arrow.classList.toggle("toggleArrow");
-      const listes = document.querySelectorAll(".list-items");
-      if (listes.length == 0) {
-    //  for (let listing of combo.list) {
-     
-          const parent = combo.input.closest("form");
-          createItem(parent, listing);
-          combo.input.style.borderRadius = "5px 5px 0 0";
-      //  }
-      } else {
-        
-        removeList();
-        
-      }
-    });
+    //   //      // const parent = combo.input.closest("form");
+    //   //       console.log(parent);
+    //   //       createItem(parent, listing);
+    //   //       combo.input.style.borderRadius = "5px 5px 0 0";
+    //   //   //  }
+    //   //   } else {
+
+       removeList();
+    
+    //   //   }
+     });
   }
-  
 }
 displayList();
 
 function keyboardList() {
   for (let combo of combos) {
     combo.input.addEventListener("keyup", () => {
-      removeList(false) 
+      removeList(false);
       for (let listing of combo.list) {
         if (
           listing.toLowerCase().startsWith(combo.input.value.toLowerCase()) &&
           combo.list.value != ""
         ) {
           const parent = combo.input.closest("form");
-
+          //console.log(parent);
           createItem(parent, listing);
 
           combo.input.style.borderRadius = "5px 5px 0 0";
@@ -175,31 +289,45 @@ function keyboardList() {
   }
 }
 
-//Fermeture de items (liste ingredients, ustensiles, appareils) ouvert
+//Fermeture de items (ingredients, ustensiles, appareils) ouvert
 function removeList(init = true) {
-  let items = document.querySelectorAll(".list-items");
- 
+  let items = document.querySelectorAll(".list-items")
+ //arrow.classList.toggle("toggleArrow");
+
   items.forEach((item) => {
+    
     item.remove();
     if (init) {
- 
       initCombo();
-      
-    }//console.log(items);
+    } //console.log(items);
   });
 }
 
 //Réinitialisation du combo sur le click d'un autre combo
 function initCombo() {
-  combos.forEach((close) => (close.input.value = ""));
+  combos.forEach((close) => (close.input.value = "")); //suppr value
   for (let combo of combos) {
     combo.input.style.borderRadius = "5px";
     combo.input.addEventListener("click", () => {});
   }
 }
 
-  // arrow.style.transform = "rotate(0deg)";
+/* 
+const searchInput = document.querySelector("#search");
+
+searchInput.addEventListener("keyup", function () {
+  const input = searchInput.value;
+
+  const results = array.filter(
+    (item) =>
+      item.name.toLowerCase().includes(input.toLowerCase()) ||
+      item.description.toLowerCase().includes(input.toLowerCase())
+  );
+  results.forEach((cardRecipes) => cardRecipes.innerHTML );
+;
+});
+ */
+
+// arrow.style.transform = "rotate(0deg)";
 // arrow.classList.toggle("toggleArrow");
 //window.addEventListener("click", function(event) {});
-
-

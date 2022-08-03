@@ -168,7 +168,7 @@ input:focus::placeholder {
   margin: 20px 0 0 0;
   width: auto;
   height: 50px;
-  display: none;
+   display: none; 
 }
 
 /****************************************************************************/
@@ -349,7 +349,7 @@ input:focus::placeholder {
 .ustTag { 
   background-color: #ed6454;
 }   
-.closedtag {
+.closedTag {
   position: absolute;
   top: 0;
   right: 0;
