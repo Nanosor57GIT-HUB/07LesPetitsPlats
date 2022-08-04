@@ -6,16 +6,17 @@ document.querySelector(
             </label>
             <input
               class="input"    
+              placeholder="Rechercher une recette ..."
               type="text"
               id="search"
               name="search
-              placeholder="Rechercher une recette ..."
+              
               minlength="2"
               maxlength="30"
             /> 
             
           </div>
-<p class="error">Votre recette n'éxiste pas, veuillez essayer avec un autre mot ...</p>`;
+<p class="error">Votre recette n'éxiste pas, essayez avec un autre mot ...</p>`;
 
 
 const searchInput = document.querySelector("#search");
@@ -30,71 +31,26 @@ const searchInput = document.querySelector("#search");
         item.name.toLowerCase().includes(input.toLowerCase()) ||
         item.description.toLowerCase().includes(input.toLowerCase())
     );
-    //Mettre la fonction qui récupère les cards
-    //createcardRecipe(filtered);
+    
     console.log(filtered);
 
-    if (!filtered.length) {
-      const err = document.querySelector(".error").innerHTML;
-      
-      console.log(err);
-     }  else if (e.target.value.length >= 3) {
-      
-        console.log(filtered);
-    
+ const err = document.querySelector(".error");
+    if (!filtered.length) { 
+      err.style.display = "block"
+     // console.log(err);
+     }  else if (e.target.value.length <= 3) {
+      err.style.display = "none";
+filtered.forEach((cardFiltered) =>
+
+
+  console.log(cardFiltered)
+);       
+
       }
-    
-    //https://github.com/damevin/Les-petits-plats/tree/main/scripts/utils
+     
+   // document.querySelector(".containerCards").innerHTML += cardRecipes;
   });
-
-//------------------------------------------------------------------------------
-
-/*const charactersList = document.getElementById("charactersList");
-const searchBar = document.getElementById("searchBar");
-let hpCharacters = [];
-
-searchBar.addEventListener("keyup", (e) => {
-  const searchString = e.target.value.toLowerCase();
-
-  const filteredCharacters = hpCharacters.filter((character) => {
-    return (
-      character.name.toLowerCase().includes(searchString) ||
-      character.house.toLowerCase().includes(searchString)
-    );
-  });
-  displayCharacters(filteredCharacters);
-});
-
-const loadCharacters = async () => {
-  try {
-    const res = await fetch("https://hp-api.herokuapp.com/api/characters");
-    hpCharacters = await res.json();
-    displayCharacters(hpCharacters);
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-const displayCharacters = (characters) => {
-  const htmlString = characters
-    .map((character) => {
-      return `
-            <li class="character">
-                <h2>${character.name}</h2>
-                <p>House: ${character.house}</p>
-                <img src="${character.image}"></img>
-            </li>
-        `;
-    })
-    .join("");
-  charactersList.innerHTML = htmlString;
-};
-
-loadCharacters();*/
-
-
-
-//--------------------------------------------------------------------------------------
+ 
 /*
 //          ALGO OPTION 1 BARRE PRINCIPALE
 
@@ -135,3 +91,4 @@ barreChamp.addEventListener("input", filtreBarre);
 */
 
 //https://github.com/Christelle74/ChristellePhilippe_7_08032022/blob/master/scripts/index.js
+ //https://github.com/damevin/Les-petits-plats/tree/main/scripts/utils

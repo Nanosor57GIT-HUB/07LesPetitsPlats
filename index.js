@@ -1,10 +1,10 @@
 
 
 const array = recipes;
-
+//function cardsRecipes() {
 let cardRecipes = "";
 
-//function createCardRecipe() {
+function createCardRecipe() {
 
 array.forEach((recipe) => {
   names = recipe.name;
@@ -79,8 +79,14 @@ array.forEach((recipe) => {
 
   document.querySelector(".containerCards").innerHTML += cardRecipes;
 }); 
+
+ }
+// cardsRecipes()
+
+
+
 //}
-//createCardRecipe();
+createCardRecipe();
 //getIngredient(ingredients);// not reading forEach
 
 //https://github.com/git504/Les-Petits-Plats

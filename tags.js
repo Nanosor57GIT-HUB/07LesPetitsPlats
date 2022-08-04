@@ -1,5 +1,13 @@
 //localStorage.clear();
 
+
+
+
+
+
+
+
+
 //Création, affichage et fermeture des tags
 /*function displayTags(value, listing) {
   const colorTags = document.querySelectorAll(".ulCombo");

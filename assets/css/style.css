@@ -12,15 +12,15 @@ html {
 /*HEADER*********************************************************************/
 /***********test combo**********************/
 /*ok*/
-.wrapperCombo {
+/* .wrapperCombo {
   display: flex;
   align-items: center;
   width: 100%;
   height: 80px;
-}
+} */
 
 /*ok*/
-.wrapperCombo .search-input {
+/* .wrapperCombo .search-input {
   position: relative;
   display: flex;
   align-items: center;
@@ -32,18 +32,18 @@ html {
   border: none;
   border-radius: 7px;
   margin: 0 20px 0 0;
-}
+} */
 /*ok*/
-.selectInput::placeholder {
-  color: white;
-}
+/* .input::placeholder {
+  color: rgb(55, 23, 23);
+} */
 /*ok*/
-input:focus::placeholder {
+/* input:focus::placeholder {
   color: transparent;
 
-}
+} */
 /*ok*/
-.search-input input {
+/* .search-input input {
   height: 55px;
   width: 100%;
   outline: none;
@@ -51,12 +51,12 @@ input:focus::placeholder {
   border-radius: 5px;
   padding: 0 60px 0 20px;
   font-size: 18px;
-}
+} */
 
 
 
 /*icon arrow*/
-.search-input .icon {
+/* .search-input .icon {
   position: absolute;
   right: 0px;
   top: 0px;
@@ -69,9 +69,9 @@ input:focus::placeholder {
 }
 .fa-angle-down.rotated {
   transform: rotate(180deg);
-}
+} */
 /*test*/ /********************************************************/
-.listing {
+/* .listing {
   display: flex;
   flex-direction: row;
   width: 600px;
@@ -95,7 +95,7 @@ input:focus::placeholder {
   height: auto;
   border: 1px solid;
   color: aqua;
-}
+} */
 /**************************************************************************/
 /*HEADER*******************************************************************/
 
@@ -140,6 +140,14 @@ input:focus::placeholder {
   align-items: center;
   width: 98%;
   height: 69px;
+  border-radius: 5px;
+}
+#search::placeholder {
+   color: #ccb8b8;
+  font-size: 24px;
+}
+#search:focus::placeholder {
+   color: transparent;
 }
 
 .input {
@@ -162,13 +170,14 @@ input:focus::placeholder {
 
 .error {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   font-size: 1.7rem;
   color: red;
   margin: 20px 0 0 0;
   width: auto;
   height: 50px;
-   display: none; 
+  line-height: 50px;
+  display: none;  
 }
 
 /****************************************************************************/
@@ -310,6 +319,7 @@ input:focus::placeholder {
 .tagsContainer {
   width: 88%;
   margin: 0 auto;
+  /* display: none; */
 }
 
 .tags {
@@ -430,6 +440,7 @@ form {
   line-height: 69px;
   width: 16px;
   cursor: pointer;
+   filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.4))
 }
 .toggleArrow {
   transform: rotate(180deg);
@@ -440,6 +451,11 @@ form {
 #input3::placeholder {
   color: #ffffff;
   font-size: 18px;
+}
+#input1:focus::placeholder,
+#input2:focus::placeholder,
+#input3:focus::placeholder {
+  color: transparent;
 }
 /* associer la longueur à input*/
 .ulCombo {

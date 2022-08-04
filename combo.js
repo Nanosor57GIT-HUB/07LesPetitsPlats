@@ -105,9 +105,11 @@ function createItem(parent, listing) {
   listItem.style.cursor = "pointer";
   //  listItem.addEventListener("click", displayTags.bind(null, listing, listItem)
 
+  //localStorage for listItem
   listItem.addEventListener("click", function () {
     console.log(listItem);
     console.log(listItem.parentNode);
+
     if (localStorage.getItem("pp_Memory") == null) {
       let memoire = {
         ingredients: [],
@@ -132,86 +134,7 @@ function createItem(parent, listing) {
 
     document.querySelector(".tags").innerHTML = "";
 
-   
-
-    function testeur() {
-      // console.log(listTags);
-      // console.log(temp);
-
-      temp.ingredients.forEach((ing) => {
-
-        //CreateTags Ustensiles
-        let listTags = document.createElement("li"); //sortir
-        listTags.classList.add("list-tags"); //sortir
-        listTags.classList.add("ingTag");
-        listTags.innerText = ing;
-        document.querySelector(".tags").append(listTags); //sortir
-
-        //CreateCloseTags ingredients
-        let closeTags = document.createElement("img"); //sortir
-        closeTags.src = "./assets/images/times-circle-regular.svg"; //sortir
-        closeTags.classList.add("closedTag"); //sortir
-        closeTags.classList.add("closedIngTag");
-        closeTags.style.cursor = "pointer"; //sortir
-        listTags.appendChild(closeTags); //sortir
-      });
-
-      temp.appareils.forEach((app) => {
-
-        //CreateTags Ustensiles
-        let listTags = document.createElement("li");
-        listTags.classList.add("list-tags");
-        listTags.classList.add("appTag");
-        listTags.innerText = app;
-        document.querySelector(".tags").append(listTags);
-
-        //CreateCloseTags Appareils
-        let closeTags = document.createElement("img");
-        closeTags.src = "./assets/images/times-circle-regular.svg";
-        closeTags.classList.add("closedTag");
-        closeTags.classList.add("closedAppTag");
-        closeTags.style.cursor = "pointer";
-        listTags.appendChild(closeTags);
-      });
-
-      temp.ustensiles.forEach((ust) => {
-
-        //CreateTags Ustensiles
-        let listTags = document.createElement("li");
-        listTags.classList.add("list-tags");
-        listTags.classList.add("ustTag");
-        listTags.innerText = ust;
-        document.querySelector(".tags").append(listTags);
-
-        //CreateCloseTags Ustensiles
-        let closeTags = document.createElement("img");
-        closeTags.src = "./assets/images/times-circle-regular.svg";
-        closeTags.classList.add("closedTag");
-        closeTags.classList.add("closedUstTag");
-        closeTags.style.cursor = "pointer";
-        listTags.appendChild(closeTags);
-
-        /************************************************************************ */
-
-        // let temp = JSON.parse(localStorage.getItem("pp_Memory"));
-        // Object.keys(localStorage).forEach(function (temp) {
-
-        //   localStorage.getItem(temp);
-        //   console.log(localStorage);
-
-        //  localStorage.removeItem("pp_Memory");
-        //  console.log(localStorage);
-
-        //  console.log(temp);
-        // });
-
-        //  localStorage.removeItem("listTags");
-        //          console.log(localStorage);
-        localStorage.setItem("pp_Memory", JSON.stringify(temp));
-        //   console.log(localStorage);
-      });
-    }
-    testeur();
+    createTags(temp);
   });
 
   // );
@@ -224,17 +147,103 @@ function createItem(parent, listing) {
   // console.log(listItem);//ressort une liste
 }
 
+
+//Mettre pour fermer l'input au click sur listItem :  combo.input.value = ""
 /*************************************************************** */
+function createTags(temp) {
+  console.log(temp);
+  temp.ingredients.forEach((ing) => {
+    //CreateTags Ustensiles
+    let listTags = document.createElement("li"); //sortir
+    listTags.classList.add("list-tags"); //sortir
+    listTags.classList.add("ingTag");
+    listTags.innerText = ing;
+    document.querySelector(".tags").append(listTags); //sortir
 
+    //CreateCloseTags ingredients
+    let closeTags = document.createElement("img"); //sortir
+    closeTags.src = "./assets/images/times-circle-regular.svg"; //sortir
+    closeTags.classList.add("closedTag"); //sortir
+    closeTags.classList.add("closedIngTag");
+    closeTags.style.cursor = "pointer"; //sortir
+    listTags.appendChild(closeTags); //sortir
+    closeTags.addEventListener("click", () => {  //sortir
+      listTags.remove();   //sortir
+    });
+  });
 
+  temp.appareils.forEach((app) => {
+    //CreateTags Ustensiles
+    let listTags = document.createElement("li");
+    listTags.classList.add("list-tags");
+    listTags.classList.add("appTag");
+    listTags.innerText = app;
+    document.querySelector(".tags").append(listTags);
+
+    //CreateCloseTags Appareils
+    let closeTags = document.createElement("img");
+    closeTags.src = "./assets/images/times-circle-regular.svg";
+    closeTags.classList.add("closedTag");
+    closeTags.classList.add("closedAppTag");
+    closeTags.style.cursor = "pointer";
+    listTags.appendChild(closeTags);
+    closeTags.addEventListener("click", () => {
+      listTags.remove();
+    });
+  });
+
+  temp.ustensiles.forEach((ust) => {
+    //CreateTags Ustensiles
+    let listTags = document.createElement("li");
+    listTags.classList.add("list-tags");
+    listTags.classList.add("ustTag");
+    listTags.innerText = ust;
+    document.querySelector(".tags").append(listTags);
+
+    //CreateCloseTags Ustensiles
+    let closeTags = document.createElement("img");
+    closeTags.src = "./assets/images/times-circle-regular.svg";
+    closeTags.classList.add("closedTag");
+    closeTags.classList.add("closedUstTag");
+    closeTags.style.cursor = "pointer";
+    listTags.appendChild(closeTags);
+    closeTags.addEventListener("click", () => {
+      listTags.remove();
+    });
+
+    /************************************************************************ */
+  });
+  // let temp = JSON.parse(localStorage.getItem("pp_Memory"));
+  // Object.keys(localStorage).forEach(function (temp) {
+
+  //   localStorage.getItem(temp);
+  //   console.log(localStorage);
+
+  //  localStorage.removeItem("pp_Memory");
+  //  console.log(localStorage);
+
+  //  console.log(temp);
+  // });
+
+  //  localStorage.removeItem("listTags");
+  //          console.log(localStorage);
+  localStorage.setItem("pp_Memory", JSON.stringify(temp));
+  //   console.log(localStorage);
+}
+/************************************************************** */
 
 //Ressort la liste complète de chaque élément "list" au click sur le combo
 function displayList() {
   for (let combo of combos) {
-    combo.input.addEventListener("click", () => {   
+    combo.input.addEventListener("click", () => {
       combo.arrow.classList.toggle("toggleArrow");
+
+      //trouver la bonne condition
+      // if (combo.input.clicked === false) {
+      // combo.arrow.classList.toggle("toggleArrow");
+      // }
+
       // console.log(combo.list);
-     
 
       removeList();
 
@@ -246,25 +255,11 @@ function displayList() {
 
       keyboardList();
     });
-   
-     combo.arrow.addEventListener("click", () => {
-     combo.arrow.classList.toggle("toggleArrow");
-    //   console.log(e.target);
-    //   //   const listes = document.querySelectorAll(".list-items");
-    //   //   if (listes.length == 0) {
-    //   // //  for (let listing of combo.list) {
 
-    //   //      // const parent = combo.input.closest("form");
-    //   //       console.log(parent);
-    //   //       createItem(parent, listing);
-    //   //       combo.input.style.borderRadius = "5px 5px 0 0";
-    //   //   //  }
-    //   //   } else {
-
-       removeList();
-    
-    //   //   }
-     });
+    combo.arrow.addEventListener("click", () => {
+      combo.arrow.classList.toggle("toggleArrow");
+      removeList();
+    });
   }
 }
 displayList();
@@ -291,11 +286,8 @@ function keyboardList() {
 
 //Fermeture de items (ingredients, ustensiles, appareils) ouvert
 function removeList(init = true) {
-  let items = document.querySelectorAll(".list-items")
- //arrow.classList.toggle("toggleArrow");
-
+  let items = document.querySelectorAll(".list-items");
   items.forEach((item) => {
-    
     item.remove();
     if (init) {
       initCombo();
@@ -305,7 +297,7 @@ function removeList(init = true) {
 
 //Réinitialisation du combo sur le click d'un autre combo
 function initCombo() {
-  combos.forEach((close) => (close.input.value = "")); //suppr value
+  combos.forEach((close) => (close.input.value = ""));
   for (let combo of combos) {
     combo.input.style.borderRadius = "5px";
     combo.input.addEventListener("click", () => {});
