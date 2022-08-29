@@ -8,94 +8,7 @@ html {
   right: 0;
   bottom: 0;
 }
-/****************************************************************************/
-/*HEADER*********************************************************************/
-/***********test combo**********************/
-/*ok*/
-/* .wrapperCombo {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 80px;
-} */
 
-/*ok*/
-/* .wrapperCombo .search-input {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 180px;
-  height: 60px;
-  font-size: 1rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 7px;
-  margin: 0 20px 0 0;
-} */
-/*ok*/
-/* .input::placeholder {
-  color: rgb(55, 23, 23);
-} */
-/*ok*/
-/* input:focus::placeholder {
-  color: transparent;
-
-} */
-/*ok*/
-/* .search-input input {
-  height: 55px;
-  width: 100%;
-  outline: none;
-  border: none;
-  border-radius: 5px;
-  padding: 0 60px 0 20px;
-  font-size: 18px;
-} */
-
-
-
-/*icon arrow*/
-/* .search-input .icon {
-  position: absolute;
-  right: 0px;
-  top: 0px;
-  height: 55px;
-  width: 55px;
-  text-align: center;
-  line-height: 55px;
-  font-size: 20px;
-  color: #fff;
-}
-.fa-angle-down.rotated {
-  transform: rotate(180deg);
-} */
-/*test*/ /********************************************************/
-/* .listing {
-  display: flex;
-  flex-direction: row;
-  width: 600px;
-  background-color: rgb(249, 135, 135);
-}
-.autocomplete {
-  display: flex;
-  flex-direction: row;
-  width: 10%;
-  height: 20px;
-  background-color: rgb(145, 70, 202);
-}
-.liList {
-  list-style: none;
-  width: 100%;
-  margin-left: -20px;
-  font-size: 1rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  height: auto;
-  border: 1px solid;
-  color: aqua;
-} */
 /**************************************************************************/
 /*HEADER*******************************************************************/
 
@@ -120,7 +33,7 @@ html {
 }
 
 /***************************************************************************/
-/*SEARCH********************************************************************/
+/*SEARCH-BAR********************************************************************/
 
 .searchWrapper {
   display: flex;
@@ -307,7 +220,7 @@ html {
 }
 
 /************************************************************************/
-/**********COMBO ET TAGS*/
+/**********COMBO & TAGS*/
 .tagsWrapper {
   display: flex;
   flex-direction: column;
@@ -372,35 +285,38 @@ html {
 .wrapperCombo {
   position: relative;
   display: flex;
+  flex-direction: column;
   width: 100%;
-  height: auto;
 }
 
 .containerCombo {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   width: 88%;
   margin: 0 auto;
-  height: auto;
 }
-.combo {
+.combos {
+  display: flex;
+  width: 100%;
+  min-width: 50%;
+}
+.combos-spaces {
   display: flex;
   justify-content: space-between;
   min-width: 50%;
-  max-width: 100;
+  max-width: 100%;
 }
 form {
   display: flex;
   flex-direction: column;
   width: auto;
-  max-width: 60%;
+  max-width: 70%;
   height: auto;
-  /* margin-right: 70px; */
 }
 
-#input1[type="text"],
-#input2[type="text"],
-#input3[type="text"] {
+#inputCombo1[type="text"],
+#inputCombo2[type="text"],
+#inputCombo3[type="text"] {
   width: 160px;
   min-width: 100%;
   height: 69px;
@@ -412,13 +328,13 @@ form {
   font-size: 18px;
   cursor: pointer;
 }
-#input1 {
+#inputCombo1 {
   background-color: #3182f7;
 }
-#input2 {
+#inputCombo2 {
   background-color: #68d9a5;
 }
-#input3 {
+#inputCombo3 {
   background-color: #ed6454;
 }
 
@@ -446,15 +362,15 @@ form {
   transform: rotate(180deg);
 }
 
-#input1::placeholder,
-#input2::placeholder,
-#input3::placeholder {
+#inputCombo1::placeholder,
+#inputCombo2::placeholder,
+#inputCombo3::placeholder {
   color: #ffffff;
   font-size: 18px;
 }
-#input1:focus::placeholder,
-#input2:focus::placeholder,
-#input3:focus::placeholder {
+#inputCombo1:focus::placeholder,
+#inputCombo2:focus::placeholder,
+#inputCombo3:focus::placeholder {
   color: transparent;
 }
 /* associer la longueur à input*/
@@ -490,8 +406,16 @@ form {
   margin: 5px 5px;
   padding: 0 7px;
 }
- /* .list-items:hover {
+
+.element-undefined {
+  text-align: center;
+  font-size: 1.5rem;
+  height: 150px;
+  line-height: 150px;
+  display: none;
+}
+ .list-items:hover {
   background-color: rgb(0, 0, 0, 0.2);
   border-radius: 3px;
   padding: 0 7px;
-}  */
+} 

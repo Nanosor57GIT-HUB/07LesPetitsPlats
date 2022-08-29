@@ -2,11 +2,14 @@
 localStorage.clear();
 
 document.querySelector(".containerCombo").innerHTML = ` 
-<div class="combo">
+
+
+<div class="combos">
+<div class="combos-spaces">
          <form autocomplete="off">
       <div class="boxIngredients comb">
-        <input type="text" id="input1" class="inputCombo1 inputCombo" placeholder="Ingredients ..." maxlength="9" />
-        <img src="./assets/images/angle-up-solid.svg" class="ar1 arrow-down toggleArrow">
+        <input type="text" id="inputCombo1" class="inputCombo1 inputCombo" placeholder="Ingredients ..." maxlength="9" />
+        <img src="./assets/images/angle-up-solid.svg" class="arrow-down toggleArrow">
       </div>
       <ul class="ulCombo bgListCombo1"></ul>
     </form>
@@ -14,8 +17,8 @@ document.querySelector(".containerCombo").innerHTML = `
 
     <form autocomplete="off">
       <div class="boxAppareils comb">
-        <input type="text" id="input2" class="inputCombo2 inputCombo" placeholder="Appareils ..." maxlength="9" />
-        <img src="./assets/images/angle-up-solid.svg" class="ar2 arrow-down toggleArrow">
+        <input type="text" id="inputCombo2" class="inputCombo2 inputCombo" placeholder="Appareils ..." maxlength="9" />
+        <img src="./assets/images/angle-up-solid.svg" class="arrow-down toggleArrow">
       </div>
       <ul class="ulCombo bgListCombo2"></ul>
     </form>
@@ -23,157 +26,165 @@ document.querySelector(".containerCombo").innerHTML = `
 
             <form autocomplete="off">
       <div class="boxUstensiles comb">
-        <input type="text" id="input3" class="inputCombo3 inputCombo" placeholder="Ustensiles ..." maxlength="9" />
-        <img src="./assets/images/angle-up-solid.svg" class="ar3 arrow-down toggleArrow">
+        <input type="text" id="inputCombo3" class="inputCombo3 inputCombo" placeholder="Ustensiles ..." maxlength="9" />
+        <img src="./assets/images/angle-up-solid.svg" class="arrow-down toggleArrow">
       </div>
       <ul class="ulCombo bgListCombo3"></ul>
     </form>
   </div>
-           
-          </div>`;
+  </div>
+    
+  <p class="element-undefined"> Cet élément n'est pas associé à vos choix précédents .</p>
+         `;
 
-//Appel des éléments du DOM
-let input = document.querySelector(".inputCombo1");
-let input2 = document.querySelector(".inputCombo2");
-let input3 = document.querySelector(".inputCombo3");
-let ar1 = document.querySelector(".ar1");
-let ar2 = document.querySelector(".ar2");
-let ar3 = document.querySelector(".ar3");
+let combo1 = document.querySelector(".inputCombo1");
+let combo2 = document.querySelector(".inputCombo2");
+let combo3 = document.querySelector(".inputCombo3");
+let inactiveArrow = document.querySelector(".arrow-down");
 let arrow = document.querySelector(".toggleArrow");
 
 //Création des const de tableaux
-let component = [];
-let ustensile = [];
-let appareils = [];
+let components = []; // =>ingredients
+let accessories = []; // =>ustensiles
+let equipments = []; // =>appareils
 
 //Récupération des datas api
 function getDataCombo() {
   //Récupération des tableaux ingrédients, appareils et ustensiles
   recipes.forEach((recipe) => {
-    //Récupération de chaque appareils/new array appliance
-    appliance = recipe.appliance;
+    //Récupération de chaque appareils/new array applianceList
+    appliancesList = recipe.appliance;
 
-    appareils.push(appliance);
-    appliance = [...new Set(appareils)];
+    equipments.push(appliancesList);
+    appliancesList = [...new Set(equipments)];
 
-    //Récupération de chaque ustensiles/new array cookingTools
-    ustens = recipe.ustensils;
+    //Récupération de chaque ustensiles/new array ustensilesList
+    ustensiles = recipe.ustensils;
+    ustensiles.forEach((ust) => {
+      ustensilesList = ust;
 
-    ustens.forEach((ust) => {
-      cookingTools = ust;
-      ustensile.push(cookingTools);
-      cookingTools = [...new Set(ustensile)];
+      accessories.push(ustensilesList);
+      ustensilesList = [...new Set(accessories)];
     });
 
-    //Récupération de chaque component/new Array ingredient
+    //Récupération de chaque component/new Array ingredientList
     ingredients = recipe.ingredients;
-
     ingredients.forEach((ing) => {
-      ingredient = ing.ingredient;
+      ingredientsList = ing.ingredient;
+
       //Pousser les éléments dans le tableau component
-      component.push(ingredient);
+      components.push(ingredientsList);
       //Suppression des doublons
-      ingredient = [...new Set(component)];
+      ingredientsList = [...new Set(components)];
     });
   });
 }
-getDataCombo(component, ustensile, appareils);
+getDataCombo(components, accessories, equipments);
 
-/************************************************************************* */
+/***************************************************************************** */
 
 //Trier les noms dans les listes par ordre croissant (native)
-let sortedIngredients = ingredient.sort();
-let sortedUstensile = cookingTools.sort();
-let sortedAppareils = appliance.sort();
+let sortedIngredients = ingredientsList.sort();
+let sortedUstensile = ustensilesList.sort();
+let sortedAppareils = appliancesList.sort();
 
 //Création d'un tableau avec les combos
 let combos = [
-  { input: input, list: sortedIngredients, arrow: ar1 },
-  { input: input2, list: sortedAppareils, arrow: ar2 },
-  { input: input3, list: sortedUstensile, arrow: ar3 },
+  { input: combo1, list: sortedIngredients, arrow: inactiveArrow },
+  { input: combo2, list: sortedAppareils, arrow: inactiveArrow },
+  { input: combo3, list: sortedUstensile, arrow: inactiveArrow },
 ];
 /*console.log(combos);*/ /*sort 3 objets avec le combo,
  la arrow et la liste triée, pour chaque catégorie.*/
 
-/************************************************************** */
+/****************************************************************************** */
 
-//Création d'une liste "li"
-function createItem(parent, listing) {
-  // Création d'un élément li
+function createItemList(parent, listByCombo) {
+  // Création des éléments listItem
   let listItem = document.createElement("li");
   listItem.classList.add("list-items");
   listItem.style.cursor = "pointer";
-  //  listItem.addEventListener("click", displayTags.bind(null, listing, listItem)
 
-  //localStorage for listItem
-  listItem.addEventListener("click", function () {
-    console.log(listItem);
-    console.log(listItem.parentNode);
+  //localStorage tags for listItem
+  listItem.addEventListener("click", () => {
+    // console.log("click sur un item");
+    console.log(listItem != word);
+
+    //for (let combo of combos) combo.arrow.classList.toggle("toggleArrow");
+
+    // console.log(listItem);
+    // console.log(listItem.parentNode);
+    // console.log(listItem.innerHTML);
+    // console.log(word);
 
     if (localStorage.getItem("pp_Memory") == null) {
       let memoire = {
-        ingredients: [],
-        appareils: [],
-        ustensiles: [],
+        ingredientStore: [],
+        appareilStore: [],
+        ustensileStore: [],
       };
       localStorage.setItem("pp_Memory", JSON.stringify(memoire));
     }
 
-    let temp = JSON.parse(localStorage.getItem("pp_Memory"));
+    let tempStorage = JSON.parse(localStorage.getItem("pp_Memory"));
     if (listItem.parentNode.classList.contains("bgListCombo1")) {
-      temp.ingredients.push(listItem.innerHTML);
+      tempStorage.ingredientStore.push(listItem.innerHTML);
     }
     if (listItem.parentNode.classList.contains("bgListCombo2")) {
-      temp.appareils.push(listItem.innerHTML);
+      tempStorage.appareilStore.push(listItem.innerHTML);
     }
     if (listItem.parentNode.classList.contains("bgListCombo3")) {
-      temp.ustensiles.push(listItem.innerHTML);
+      tempStorage.ustensileStore.push(listItem.innerHTML);
     }
 
-    localStorage.setItem("pp_Memory", JSON.stringify(temp));
+    localStorage.setItem("pp_Memory", JSON.stringify(tempStorage));
 
     document.querySelector(".tags").innerHTML = "";
 
-    createTags(temp);
+    //remove listItem
+    removeList();
+
+    //DisplayTags
+    createTags(tempStorage);
+
+    //faire l'algo ici
+
+    //récup cards
+    cardsSort();
   });
 
-  // );
+  let word = listByCombo;
 
-  let word = listing;
-  //afficher la valeur de chaque éléments
+  //afficher la valeur de chaque éléments combo cliqué
   listItem.innerText = word;
   // console.log(word);
+
   parent.querySelector(".ulCombo").appendChild(listItem);
-  // console.log(listItem);//ressort une liste
 }
 
+/******************************************************************************* */
 
-//Mettre pour fermer l'input au click sur listItem :  combo.input.value = ""
-/*************************************************************** */
-function createTags(temp) {
-  console.log(temp);
-  temp.ingredients.forEach((ing) => {
-    //CreateTags Ustensiles
-    let listTags = document.createElement("li"); //sortir
-    listTags.classList.add("list-tags"); //sortir
+function createTags(tempStorage) {
+  tempStorage.ingredientStore.forEach((ing) => {
+    //CreateTags ingredients
+    let listTags = document.createElement("li");
+    listTags.classList.add("list-tags");
     listTags.classList.add("ingTag");
     listTags.innerText = ing;
-    document.querySelector(".tags").append(listTags); //sortir
+    document.querySelector(".tags").append(listTags);
 
     //CreateCloseTags ingredients
-    let closeTags = document.createElement("img"); //sortir
-    closeTags.src = "./assets/images/times-circle-regular.svg"; //sortir
-    closeTags.classList.add("closedTag"); //sortir
+    let closeTags = document.createElement("img");
+    closeTags.src = "./assets/images/times-circle-regular.svg";
+    closeTags.classList.add("closedTag");
     closeTags.classList.add("closedIngTag");
-    closeTags.style.cursor = "pointer"; //sortir
-    listTags.appendChild(closeTags); //sortir
-    closeTags.addEventListener("click", () => {  //sortir
-      listTags.remove();   //sortir
-    });
+    closeTags.style.cursor = "pointer";
+    listTags.appendChild(closeTags);
+    removeTags(closeTags, listTags);
   });
 
-  temp.appareils.forEach((app) => {
-    //CreateTags Ustensiles
+  tempStorage.appareilStore.forEach((app) => {
+    //CreateTags appareils
     let listTags = document.createElement("li");
     listTags.classList.add("list-tags");
     listTags.classList.add("appTag");
@@ -187,69 +198,230 @@ function createTags(temp) {
     closeTags.classList.add("closedAppTag");
     closeTags.style.cursor = "pointer";
     listTags.appendChild(closeTags);
-    closeTags.addEventListener("click", () => {
-      listTags.remove();
-    });
+    removeTags(closeTags, listTags);
   });
 
-  temp.ustensiles.forEach((ust) => {
-    //CreateTags Ustensiles
+  tempStorage.ustensileStore.forEach((ust) => {
+    //CreateTags ustensiles
     let listTags = document.createElement("li");
     listTags.classList.add("list-tags");
     listTags.classList.add("ustTag");
     listTags.innerText = ust;
     document.querySelector(".tags").append(listTags);
 
-    //CreateCloseTags Ustensiles
+    //CreateCloseTags ustensiles
     let closeTags = document.createElement("img");
     closeTags.src = "./assets/images/times-circle-regular.svg";
     closeTags.classList.add("closedTag");
     closeTags.classList.add("closedUstTag");
     closeTags.style.cursor = "pointer";
     listTags.appendChild(closeTags);
-    closeTags.addEventListener("click", () => {
-      listTags.remove();
-    });
-
-    /************************************************************************ */
+    removeTags(closeTags, listTags);
   });
-  // let temp = JSON.parse(localStorage.getItem("pp_Memory"));
-  // Object.keys(localStorage).forEach(function (temp) {
-
-  //   localStorage.getItem(temp);
-  //   console.log(localStorage);
-
-  //  localStorage.removeItem("pp_Memory");
-  //  console.log(localStorage);
-
-  //  console.log(temp);
-  // });
-
-  //  localStorage.removeItem("listTags");
-  //          console.log(localStorage);
-  localStorage.setItem("pp_Memory", JSON.stringify(temp));
-  //   console.log(localStorage);
 }
-/************************************************************** */
+
+/******************************************************************************** */
+
+//let x = "";
+//let y = "";
+//let z = "";
+function getStorage() {
+  //   //ressort les éléments stockés dans pp_Memory (si 0 return "")
+  let tagsObj = JSON.parse(localStorage.getItem("pp_Memory"));
+
+  let ingredientStore = tagsObj.ingredientStore;
+  //
+  //console.log(x);
+
+  let appareilStore = tagsObj.appareilStore;
+  //appareilStore.forEach((bcd) => (y = bcd));
+  //console.log(y);
+
+  let ustensileStore = tagsObj.ustensileStore;
+  //ustensileStore.forEach((cde) => (z = cde));
+  //console.log(z);
+}
+
+/******************************************************************************** */
+
+/********************************************************************************** */
+// À METTRE AU MOMENT DU CLIC SUR UN ITEM D'UNE LISTE (quand on ajoute un tag)
+
+//ok. On récupère dans une variable le contenu du localStorage
+
+// On crée une variable qui contiendra toutes les recettes à afficher (liste finale)
+
+// On crée une variable qui va servir de vérificateur (si elle est vraie, on garde la recette,
+// si c'est faux on ne fait rien)
+
+// Pour chaque recette (que je nomme r)=>
+// Je mets le vérificateur à vrai (on part du principe que la recette est bonne)
+
+//https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide/Grammar_and_types#d%c3%a9claration_de_variables
+
+function cardsSort() {
+  console.log("je passe ici");
+  //get elements in storage
+  getStorage();
+
+  const array1 = recipes;
+
+  //cards
+  let comboCard = "";
+
+  array1.forEach((recipe) => {
+    names = recipe.name;
+    time = recipe.time;
+    description = recipe.description;
+
+    ustensiles = recipe.ustensils;
+
+    appliances = recipe.appliance;
+
+    //array for checker function
+    let t = [];
+
+    let detailsIngredients = "";
+
+    ingredients = recipe.ingredients;
+    let ingRecipe = [];
+    ingredients.forEach((ing) => {
+      ingredient = ing.ingredient;
+      ingRecipe.push(ingredient);
+      quantity = ing.quantity;
+      unit = ing.unit;
+
+      if (quantity == undefined) {
+        quantity = "";
+      }
+      if (unit == undefined) {
+        unit = "";
+      }
+
+      const formatUnit = (unit) => {
+        switch (unit) {
+          case "gramme":
+          case "grammes":
+            return "Gr.";
+          case "cuillères à soupe":
+          case "cuillère à soupe":
+            return "C à s.";
+          case "cuillères à café":
+          case "cuillère à café":
+            return "C à c.";
+          case "litres":
+          case "litre":
+            return "L.";
+          default:
+            return unit;
+        }
+      };
+      detailsIngredients += `<li><span class="ingredients-details">${ingredient} / </span> ${quantity} ${formatUnit(
+        unit
+      )}</li>`;
+    });
+    let tagsObj = JSON.parse(localStorage.getItem("pp_Memory"));
+    let ingredientStore = tagsObj.ingredientStore;
+    let appareilStore = tagsObj.appareilStore;
+    let ustensileStore = tagsObj.ustensileStore;
+    let ok = true;
+
+    ingredientStore.forEach((iS) => {
+      if (!ingRecipe.includes(iS)) {
+        ok = false;
+      }
+    });
+    ustensileStore.forEach((uS) => {
+      if (!recipe.ustensils.includes(uS)) {
+        ok = false;
+      }
+    });
+    appareilStore.forEach((aS) => {
+      if (recipe.appliance != aS) {
+        ok = false;
+      }
+    });
+    if (ok == true) {
+      comboCard += `    <div class="card">
+              <div class="photosPlats">
+              <img src="./assets/images/logo_lespetitsplats.png" class="photoPlat" />
+              </div>  
+              <div class="titleTime">
+                <h3 class="title">${names}</h3>
+                <div class="time">
+                  <i class="far fa-clock"></i>
+                  <span class="mn">${time} mn</span>
+                </div>
+              </div>
+              <div class="recette">
+                <div class="ingredients">
+                  <ul id="list-ingredients">  
+
+                      ${detailsIngredients}
+        
+                    </ul>          
+                </div>
+                <div class="préparation">
+                  <p class="preparation-text">${description}</p>   
+                </div>
+              </div>
+           
+          </div>`;
+    }
+    document.querySelector(".containerCards").innerHTML = comboCard;
+  });
+}
+
+/********************************************************************************** */
+
+function removeTags(closeTags, listTags) {
+  closeTags.addEventListener("click", () => {
+    //console.log(listTags);
+    const nom = listTags.innerText;
+    const classe = listTags.classList[1];
+    //  console.log(nom, classe);
+    let type = "";
+
+    if (classe == "ingTag") {
+      type = "ingredientStore";
+    }
+    if (classe == "appTag") {
+      type = "appareilStore";
+    }
+    if (classe == "ustTag") {
+      type = "ustensileStore";
+    }
+
+    let tempStorage = JSON.parse(localStorage.getItem("pp_Memory"));
+    let index = tempStorage[type].indexOf(nom);
+    if (index > -1) {
+      tempStorage[type].splice(index, 1);
+    }
+    localStorage.setItem("pp_Memory", JSON.stringify(tempStorage));
+
+    listTags.remove();
+    cardsSort();
+  });
+}
+
+/********************************************************************************* */
 
 //Ressort la liste complète de chaque élément "list" au click sur le combo
 function displayList() {
   for (let combo of combos) {
     combo.input.addEventListener("click", () => {
+      //console.log(combo.list);
+
+      //  Ouvre arrow au click sur combo
       combo.arrow.classList.toggle("toggleArrow");
 
-      //trouver la bonne condition
-      // if (combo.input.clicked === false) {
-      // combo.arrow.classList.toggle("toggleArrow");
-      // }
-
-      // console.log(combo.list);
-
+      //ferme la liste/input au click sur autre combo
       removeList();
 
-      for (let listing of combo.list) {
+      for (let listByCombo of combo.list) {
+        // console.log(listByCombo);
         const parent = combo.input.closest("form");
-        createItem(parent, listing);
+        createItemList(parent, listByCombo);
         combo.input.style.borderRadius = "5px 5px 0 0";
       }
 
@@ -257,32 +429,42 @@ function displayList() {
     });
 
     combo.arrow.addEventListener("click", () => {
+      //ferme listItem au click sur arrow
       combo.arrow.classList.toggle("toggleArrow");
+
       removeList();
     });
   }
 }
 displayList();
 
+/********************************************************************************** */
+
+//Tri de la liste au clavier sur combo
 function keyboardList() {
   for (let combo of combos) {
     combo.input.addEventListener("keyup", () => {
       removeList(false);
-      for (let listing of combo.list) {
+      for (let listByCombo of combo.list) {
         if (
-          listing.toLowerCase().startsWith(combo.input.value.toLowerCase()) &&
+          listByCombo
+            .toLowerCase()
+            .startsWith(combo.input.value.toLowerCase()) &&
           combo.list.value != ""
         ) {
           const parent = combo.input.closest("form");
           //console.log(parent);
-          createItem(parent, listing);
+          createItemList(parent, listByCombo);
 
           combo.input.style.borderRadius = "5px 5px 0 0";
         }
       }
     });
+    combos.forEach((close) => (close.input.value = ""));
   }
 }
+
+/********************************************************************************* */
 
 //Fermeture de items (ingredients, ustensiles, appareils) ouvert
 function removeList(init = true) {
@@ -295,31 +477,16 @@ function removeList(init = true) {
   });
 }
 
-//Réinitialisation du combo sur le click d'un autre combo
+/********************************************************************************* */
+
+//Réinitialisation du combo
 function initCombo() {
   combos.forEach((close) => (close.input.value = ""));
   for (let combo of combos) {
+    combo.input.value = "";
     combo.input.style.borderRadius = "5px";
     combo.input.addEventListener("click", () => {});
   }
 }
 
-/* 
-const searchInput = document.querySelector("#search");
-
-searchInput.addEventListener("keyup", function () {
-  const input = searchInput.value;
-
-  const results = array.filter(
-    (item) =>
-      item.name.toLowerCase().includes(input.toLowerCase()) ||
-      item.description.toLowerCase().includes(input.toLowerCase())
-  );
-  results.forEach((cardRecipes) => cardRecipes.innerHTML );
-;
-});
- */
-
-// arrow.style.transform = "rotate(0deg)";
-// arrow.classList.toggle("toggleArrow");
-//window.addEventListener("click", function(event) {});
+/******************************************************************************** */

@@ -1,22 +1,19 @@
+const arrayRecipes = recipes;
 
-
-const array = recipes;
-//function cardsRecipes() {
 let cardRecipes = "";
 
-function createCardRecipe() {
-
-array.forEach((recipe) => {
-  names = recipe.name;
-  time = recipe.time + " mn";
-  description = recipe.description;
-  ingredients = recipe.ingredients;
+//function createCardRecipe() {
+  arrayRecipes.forEach((recipe) => {
+    names = recipe.name;
+    time = recipe.time;
+    description = recipe.description;  
   
-  let detailsIngredients = "";
+    let detailsIngredients = "";
 
-  
-    ingredients.forEach((ing) => {
-      const ingredient = ing.ingredient;
+ingredients = recipe.ingredients;
+   ingredients.forEach((ing) => {
+      ingredient = ing.ingredient;
+   //     console.log(ingredient);
       quantity = ing.quantity;
       unit = ing.unit;
 
@@ -49,45 +46,48 @@ array.forEach((recipe) => {
         unit
       )}</li>`;
     });
-  
 
-  cardRecipes = `      <div class="card">
+ 
+    //Je boucle les cards
 
+    cardRecipes += `    <div class="card">
               <div class="photosPlats">
               <img src="./assets/images/logo_lespetitsplats.png" class="photoPlat" />
               </div>  
-
               <div class="titleTime">
                 <h3 class="title">${names}</h3>
                 <div class="time">
                   <i class="far fa-clock"></i>
-                  <span class="mn">${time}</span>
+                  <span class="mn">${time} mn</span>
                 </div>
               </div>
-
               <div class="recette">
                 <div class="ingredients">
-                  <ul id="list-ingredients">            
-                   ${detailsIngredients}
+                  <ul id="list-ingredients">  
+
+ ${detailsIngredients}
+        
                     </ul>          
                 </div>
                 <div class="préparation">
                   <p class="preparation-text">${description}</p>   
                 </div>
-              </div>  
+              </div>
+           
           </div>`;
 
-  document.querySelector(".containerCards").innerHTML += cardRecipes;
-}); 
+ 
+   document.querySelector(".containerCards").innerHTML = cardRecipes;
+ })
+ 
+  
+//};
 
- }
-// cardsRecipes()
+//createCardRecipe();
 
 
 
-//}
-createCardRecipe();
-//getIngredient(ingredients);// not reading forEach
+
 
 //https://github.com/git504/Les-Petits-Plats
 //https://github.com/gndz07/GinaAdzani_7_18122020

@@ -1684,7 +1684,7 @@ const recipes = [
             }
         ],
         "time": 0,
-        "description":"Découper les fruits. Le passer au blender jusqu'à obtenir une texture liquide. Mettre au frais. Servir",
+        "description":"Découper les fruits. Le passer au blender jusqu'à obtenir une texture liquide. Mettre au frais. Servir.",
         "appliance": "Blender",
         "ustensils":["couteau", "verres"]
     },

@@ -16,41 +16,43 @@ document.querySelector(
             /> 
             
           </div>
-<p class="error">Votre recette n'éxiste pas, essayez avec un autre mot ...</p>`;
+<p class="error">Aucune recette ne correspond à votre critère… vous pouvez
+chercher « tarte aux pommes », « poisson », etc.</p>`;
 
+/************************************************************************************ */
 
-const searchInput = document.querySelector("#search");
-//console.log(searchInput);
+const searchBar = document.querySelector("#search");
 
-  searchInput.addEventListener("keyup",  (e) => {
-    console.log(e.target.value);
-    const input = searchInput.value; //e.target.value
+searchBar.addEventListener("keyup", (e) => {
+  console.log(e.target.value);
+  const input = searchBar.value; //e.target.value
 
-    const filtered = array.filter(
-      (item) =>
-        item.name.toLowerCase().includes(input.toLowerCase()) ||
-        item.description.toLowerCase().includes(input.toLowerCase())
-    );
-    
-    console.log(filtered);
+  const filterSearchBar = arrayRecipes.filter(
+    (item) =>
+      item.name.toLowerCase().includes(input.toLowerCase()) ||
+      item.description.toLowerCase().includes(input.toLowerCase())  
+  );
 
- const err = document.querySelector(".error");
-    if (!filtered.length) { 
-      err.style.display = "block"
-     // console.log(err);
-     }  else if (e.target.value.length <= 3) {
-      err.style.display = "none";
-filtered.forEach((cardFiltered) =>
+  console.log(filterSearchBar);
 
+  const errorSearch = document.querySelector(".error");
+  if (!filterSearchBar.length) {
+    errorSearch.style.display = "block";
+    // console.log(err);
+  } else if (e.target.value.length <= 3) {
+    errorSearch.style.display = "none";
+    filterSearchBar.forEach((cardFiltered) => console.log(cardFiltered))
+  }
 
-  console.log(cardFiltered)
-);       
-
-      }
-     
-   // document.querySelector(".containerCards").innerHTML += cardRecipes;
+  //corriger pour un clic à l'exterrieur de l'input
+  window.addEventListener("click", () => {
+    searchBar.value = "";
+    errorSearch.style.display = "none";
   });
- 
+});
+
+/*********************************************************************************** */
+
 /*
 //          ALGO OPTION 1 BARRE PRINCIPALE
 
@@ -91,4 +93,4 @@ barreChamp.addEventListener("input", filtreBarre);
 */
 
 //https://github.com/Christelle74/ChristellePhilippe_7_08032022/blob/master/scripts/index.js
- //https://github.com/damevin/Les-petits-plats/tree/main/scripts/utils
+//https://github.com/damevin/Les-petits-plats/tree/main/scripts/utils
