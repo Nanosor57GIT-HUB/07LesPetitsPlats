@@ -1,19 +1,25 @@
-const arrayRecipes = recipes;
+function cardsSort() {
+  const array1 = recipes;
 
-let cardRecipes = "";
+  //cards
+  let comboCard = "";
 
-
-  arrayRecipes.forEach((recipe) => {
+  array1.forEach((recipe) => {
     names = recipe.name;
     time = recipe.time;
-    description = recipe.description;  
-  
+    description = recipe.description;
+
+    ustensiles = recipe.ustensils;
+
+    appliances = recipe.appliance;
+
     let detailsIngredients = "";
 
-ingredients = recipe.ingredients;
-   ingredients.forEach((ing) => {
+    ingredients = recipe.ingredients;
+    let ingRecipe = [];
+    ingredients.forEach((ing) => {
       ingredient = ing.ingredient;
-   //     console.log(ingredient);
+      ingRecipe.push(ingredient);
       quantity = ing.quantity;
       unit = ing.unit;
 
@@ -47,10 +53,42 @@ ingredients = recipe.ingredients;
       )}</li>`;
     });
 
- 
-    //Je boucle les cards
+    //get elements in storage
+    let tagsObj = JSON.parse(localStorage.getItem("pp_Memory"));
+    let ingredientStore = tagsObj.ingredientStore;
+    let appareilStore = tagsObj.appareilStore;
+    let ustensileStore = tagsObj.ustensileStore;
 
-    cardRecipes += `    <div class="card">
+    let ok = true;
+
+    ingredientStore.forEach((iS) => {
+      if (!ingRecipe.includes(iS)) {
+        ok = false;
+      //  errorCombo.style.color = "#2f83f5";
+      }
+    });
+    ustensileStore.forEach((uS) => {
+      if (!recipe.ustensils.includes(uS)) {
+        ok = false;
+      //  errorCombo.style.color = "#ed6454";
+      }
+    });
+    appareilStore.forEach((aS) => {
+      if (recipe.appliance != aS) {
+        ok = false;
+       // errorCombo.style.color = "#68d9a5";
+      }
+    });
+
+    //error messages if no match
+    if (comboCard != "") {
+      errorCombo.style.display = "none";
+    } else {
+      errorCombo.style.display = "block";
+    }
+
+    if (ok == true) {
+      comboCard += `    <div class="card">
               <div class="photosPlats">
               <img src="./assets/images/logo_lespetitsplats.png" class="photoPlat" />
               </div>  
@@ -65,7 +103,7 @@ ingredients = recipe.ingredients;
                 <div class="ingredients">
                   <ul id="list-ingredients">  
 
- ${detailsIngredients}
+                      ${detailsIngredients}
         
                     </ul>          
                 </div>
@@ -75,12 +113,7 @@ ingredients = recipe.ingredients;
               </div>
            
           </div>`;
-
- 
-   document.querySelector(".containerCards").innerHTML = cardRecipes;
- })
- 
-
-//maquette : https://www.figma.com/file/xqeE1ZKlHUWi2Efo8r73NK
-
-//https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Functions/Default_parameters
+    }
+    document.querySelector(".containerCards").innerHTML = comboCard;
+  });
+}

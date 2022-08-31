@@ -99,6 +99,7 @@ html {
 .wrapperCards {
   width: 100%;
   height: auto;
+ 
 }
 
 .containerCards {
@@ -113,7 +114,7 @@ html {
   width: 380px;
   height: 364px;
   margin: 30px 0;
-  border-radius: 7px;
+  border-radius: 7px; 
 }
 
 .photosPlats {
@@ -312,6 +313,7 @@ form {
   width: auto;
   max-width: 70%;
   height: auto;
+ 
 }
 
 #inputCombo1[type="text"],
@@ -345,7 +347,7 @@ form {
   width: auto;
   max-width: 100%;
   min-width: 170px;
-  padding-right: 10px;
+  padding-right: 10px; 
 }
 
 .arrow-down {
@@ -367,6 +369,7 @@ form {
 #inputCombo3::placeholder {
   color: #ffffff;
   font-size: 18px;
+  
 }
 #inputCombo1:focus::placeholder,
 #inputCombo2:focus::placeholder,
@@ -385,7 +388,7 @@ form {
   margin: 0;
   padding: 0;
   color: #ffffff;
-  border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;  
 }
 
 .bgListCombo1 {
@@ -402,7 +405,6 @@ form {
   width: auto;
   height: auto;
   display: block;
-  /* padding: 10px 10px; */
   margin: 5px 5px;
   padding: 0 7px;
 }
@@ -410,8 +412,9 @@ form {
 .element-undefined {
   text-align: center;
   font-size: 1.5rem;
-  height: 150px;
-  line-height: 150px;
+  color: red;
+  height: 300px;
+  line-height: 300px;
   display: none;
 }
  .list-items:hover {

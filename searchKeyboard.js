@@ -27,30 +27,72 @@ searchBar.addEventListener("keyup", (e) => {
   console.log(e.target.value);
   const input = searchBar.value; //e.target.value
 
-  const filterSearchBar = arrayRecipes.filter(
+  let suggestion = "";
+
+  let detailsIngredients = "";
+
+  ingredients.forEach((oui) => {
+    detailsIngredients += `<li><span class="ingredients-details">${oui.ingredient} / </span> ${oui.quantity} ${oui.unit}</li>`;
+  });
+
+  const filtersSearchBar = arrayRecipes.filter(
     (item) =>
       item.name.toLowerCase().includes(input.toLowerCase()) ||
-      item.description.toLowerCase().includes(input.toLowerCase())  
+      item.description.toLowerCase().includes(input.toLowerCase())
   );
 
-  console.log(filterSearchBar);
+  console.log(filtersSearchBar.length);
 
   const errorSearch = document.querySelector(".error");
-  if (!filterSearchBar.length) {
+
+  if (!filtersSearchBar.length) {
     errorSearch.style.display = "block";
-    // console.log(err);
   } else if (e.target.value.length <= 3) {
     errorSearch.style.display = "none";
-    filterSearchBar.forEach((cardFiltered) => console.log(cardFiltered))
   }
 
-  //corriger pour un clic à l'exterrieur de l'input
-  window.addEventListener("click", () => {
-    searchBar.value = "";
-    errorSearch.style.display = "none";
-  });
+  if (filtersSearchBar.length || e.target.value.length >= 3) {
+    filtersSearchBar.forEach((filt) => {
+      suggestion += `    <div class="card">
+
+              <div class="photosPlats">
+              <img src="./assets/images/logo_lespetitsplats.png" class="photoPlat" />
+              </div>  
+
+              <div class="titleTime">
+                <h3 class="title">${filt.name}</h3>
+                <div class="time">
+                  <i class="far fa-clock"></i>
+                  <span class="mn">${filt.time} mn</span>
+                </div>
+              </div>
+
+              <div class="recette">
+                <div class="ingredients">
+                  <ul id="list-ingredients">
+                
+               ${detailsIngredients}
+                 
+                    </ul>          
+                </div>
+                <div class="préparation">
+                  <p class="preparation-text">${filt.description}</p>   
+                </div>
+              </div>
+
+           
+          </div>`;
+    });
+  }
+  document.querySelector(".containerCards").innerHTML = suggestion;
 });
 
+/*********************************************************************************** */
+//clic à l'exterrieur de l'input
+//   window.addEventListener("click", () => {
+//     searchBar.value = "";
+//     errorSearch.style.display = "none";
+//   });
 /*********************************************************************************** */
 
 /*
