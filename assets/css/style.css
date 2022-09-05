@@ -99,7 +99,6 @@ html {
 .wrapperCards {
   width: 100%;
   height: auto;
- 
 }
 
 .containerCards {
@@ -201,13 +200,13 @@ html {
 .ingredients-details {
   font-weight: 900;
 }
+
 .préparation {
   position: relative;
   width: 50%;
   height: 95%;
   padding-right: 20px;
 }
-
 .preparation-text {
   display: flex;
   width: 100%;
@@ -222,6 +221,7 @@ html {
 
 /************************************************************************/
 /**********COMBO & TAGS*/
+/*tags*/
 .tagsWrapper {
   display: flex;
   flex-direction: column;
@@ -283,6 +283,8 @@ html {
   margin-right: 6px;
  filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.4))
 }
+
+/*combos*/
 .wrapperCombo {
   position: relative;
   display: flex;
@@ -296,6 +298,7 @@ html {
   width: 88%;
   margin: 0 auto;
 }
+
 .combos {
   display: flex;
   width: 100%;
@@ -307,13 +310,13 @@ html {
   min-width: 50%;
   max-width: 100%;
 }
-form {
+
+form {  
   display: flex;
   flex-direction: column;
   width: auto;
   max-width: 70%;
   height: auto;
- 
 }
 
 #inputCombo1[type="text"],
@@ -358,8 +361,9 @@ form {
   line-height: 69px;
   width: 16px;
   cursor: pointer;
-   filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.4))
+   filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.4));
 }
+
 .toggleArrow {
   transform: rotate(180deg);
 }
@@ -368,16 +372,15 @@ form {
 #inputCombo2::placeholder,
 #inputCombo3::placeholder {
   color: #ffffff;
-  font-size: 18px;
-  
+  font-size: 18px;  
 }
 #inputCombo1:focus::placeholder,
 #inputCombo2:focus::placeholder,
 #inputCombo3:focus::placeholder {
-  color: transparent;
+  color: #ffffff64;
 }
-/* associer la longueur à input*/
-.ulCombo {
+
+.ulCombo { 
   list-style: none;
   display: flex;
   flex-direction: row;
@@ -388,7 +391,8 @@ form {
   margin: 0;
   padding: 0;
   color: #ffffff;
-  border-radius: 0 0 5px 5px;  
+  border-radius: 0 0 5px 5px; 
+  z-index: 10000;
 }
 
 .bgListCombo1 {
@@ -408,6 +412,11 @@ form {
   margin: 5px 5px;
   padding: 0 7px;
 }
+ .list-items:hover {
+  background-color: rgb(0, 0, 0, 0.2);
+  border-radius: 3px;
+  padding: 0 7px;
+}
 
 .element-undefined {
   text-align: center;
@@ -417,8 +426,3 @@ form {
   line-height: 300px;
   display: none;
 }
- .list-items:hover {
-  background-color: rgb(0, 0, 0, 0.2);
-  border-radius: 3px;
-  padding: 0 7px;
-} 

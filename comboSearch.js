@@ -1,10 +1,8 @@
 function cardsSort() {
-  const array1 = recipes;
-
-  //cards
+ 
   let comboCard = "";
 
-  array1.forEach((recipe) => {
+  arrayRecipes.forEach((recipe) => {
     names = recipe.name;
     time = recipe.time;
     description = recipe.description;
@@ -64,19 +62,19 @@ function cardsSort() {
     ingredientStore.forEach((iS) => {
       if (!ingRecipe.includes(iS)) {
         ok = false;
-      //  errorCombo.style.color = "#2f83f5";
+        //  errorCombo.style.color = "#2f83f5";
       }
     });
     ustensileStore.forEach((uS) => {
       if (!recipe.ustensils.includes(uS)) {
         ok = false;
-      //  errorCombo.style.color = "#ed6454";
+        //  errorCombo.style.color = "#ed6454";
       }
     });
     appareilStore.forEach((aS) => {
       if (recipe.appliance != aS) {
         ok = false;
-       // errorCombo.style.color = "#68d9a5";
+        // errorCombo.style.color = "#68d9a5";
       }
     });
 
@@ -86,8 +84,9 @@ function cardsSort() {
     } else {
       errorCombo.style.display = "block";
     }
-
+     
     if (ok == true) {
+      
       comboCard += `    <div class="card">
               <div class="photosPlats">
               <img src="./assets/images/logo_lespetitsplats.png" class="photoPlat" />
