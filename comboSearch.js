@@ -1,6 +1,16 @@
 function cardsSort() {
- 
+
   let comboCard = "";
+
+  //Create storage array of sorted elements when displaying tags
+  let recipesOk = [];
+
+  //Get elements in localStorage
+  let tagsObj = JSON.parse(localStorage.getItem("pp_Memory"));
+  let ingredientStore = tagsObj.ingredientStore;
+  let appareilStore = tagsObj.appareilStore;
+  let ustensileStore = tagsObj.ustensileStore;
+  //-----------------------
 
   arrayRecipes.forEach((recipe) => {
     names = recipe.name;
@@ -51,18 +61,13 @@ function cardsSort() {
       )}</li>`;
     });
 
-    //get elements in storage
-    let tagsObj = JSON.parse(localStorage.getItem("pp_Memory"));
-    let ingredientStore = tagsObj.ingredientStore;
-    let appareilStore = tagsObj.appareilStore;
-    let ustensileStore = tagsObj.ustensileStore;
-
+    //True map display
     let ok = true;
 
     ingredientStore.forEach((iS) => {
       if (!ingRecipe.includes(iS)) {
         ok = false;
-        //  errorCombo.style.color = "#2f83f5";
+         // errorCombo.style.color = "#2f83f5";
       }
     });
     ustensileStore.forEach((uS) => {
@@ -84,9 +89,11 @@ function cardsSort() {
     } else {
       errorCombo.style.display = "block";
     }
-     
+
     if (ok == true) {
-      
+      //Updates recipesOk array
+      recipesOk.push(recipe);
+
       comboCard += `    <div class="card">
               <div class="photosPlats">
               <img src="./assets/images/logo_lespetitsplats.png" class="photoPlat" />
@@ -114,5 +121,59 @@ function cardsSort() {
           </div>`;
     }
     document.querySelector(".containerCards").innerHTML = comboCard;
+  });
+
+  //Creation of tables by categories
+  let listIng = [];
+  let listApp = [];
+  let listUst = [];
+
+  //updates each category by comparison
+  recipesOk.forEach((r) => {
+    if (
+      !listApp.includes(r.appliance) &&
+      !appareilStore.includes(r.appliance)
+    ) {
+      listApp.push(r.appliance);
+    }
+
+    r.ustensils.forEach((rU) => {
+      if (!listUst.includes(rU) && !ustensileStore.includes(rU)) {
+        listUst.push(rU);
+      }
+    });
+
+    r.ingredients.forEach((rI) => {  
+      if (
+        !listIng.includes(rI.ingredient) &&
+        !ingredientStore.includes(rI.ingredient)
+      ) {
+        listIng.push(rI.ingredient);
+      }
+    });
+  });
+
+  //sorting arrays
+  listIng.sort();
+  listUst.sort();
+  listApp.sort();
+
+  //Returns remaining elements on combos
+  let forms = document.querySelectorAll("form");
+  forms.forEach((f) => {
+    f.querySelector("ul").innerHTML = "";
+  });
+
+  removeList();
+
+  //Updates each list on its designated combo
+  listIng.forEach((ing) => {
+    createItemList(forms[0], ing);
+  });
+  listApp.forEach((app) => {
+    createItemList(forms[1], app);
+  });
+  listUst.forEach((ust) => {
+    createItemList(forms[2], ust);
   });
 }

@@ -286,6 +286,7 @@ html {
 
 /*combos*/
 .wrapperCombo {
+  
   position: relative;
   display: flex;
   flex-direction: column;

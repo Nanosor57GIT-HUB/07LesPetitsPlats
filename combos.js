@@ -44,7 +44,6 @@ let combo3 = document.querySelector(".inputCombo3");
 let ar1 = document.querySelector(".ar1");
 let ar2 = document.querySelector(".ar2");
 let ar3 = document.querySelector(".ar3");
-//let arrowDown = document.querySelector(".arrow-down");
 let arrow = document.querySelector(".toggleArrow");
 let errorCombo = document.querySelector(".element-undefined");
 
@@ -101,6 +100,17 @@ let combos = [
 ];
 //sort 3 objects with combo, the arrow and the sorted list, for each category.
 
+//commenter------------
+for (let combo of combos) {
+  for (let listByCombo of combo.list) {
+    // console.log(listByCombo);
+    const parent = combo.input.closest("form");
+    createItemList(parent, listByCombo);
+  }
+}
+
+removeList();
+
 /****************************************************************************** */
 
 function createItemList(parent, listByCombo) {
@@ -111,11 +121,6 @@ function createItemList(parent, listByCombo) {
 
   //localStorage tags for listItem
   listItem.addEventListener("click", () => {
-
-  //  for(let combo of combos)
-  //      combo.arrow.classList.toggle("toggleArrow");
-     
-
     //Create Storage elements per click
     if (localStorage.getItem("pp_Memory") == null) {
       let memoire = {
@@ -143,7 +148,8 @@ function createItemList(parent, listByCombo) {
 
     //Display Tags
     createTags(tempStorage);
-
+    
+    
     //Remove listItem
     removeList();
 
@@ -168,8 +174,8 @@ function createItemList(parent, listByCombo) {
 /******************************************************************************* */
 
 function createTags(tempStorage) {
-   for( let combo of combos)  
-   combo.arrow.classList.toggle("toggleArrow");
+ //  for (let combo of combos) 
+  // combo.arrow.classList.toggle("toggleArrow");
 
   tempStorage.ingredientStore.forEach((ing) => {
     //CreateTags ingredients
@@ -178,6 +184,7 @@ function createTags(tempStorage) {
     listTags.classList.add("ingTag");
     listTags.innerText = ing;
     document.querySelector(".tags").append(listTags);
+   
 
     //CreateCloseTags ingredients
     let closeTags = document.createElement("img");
@@ -226,11 +233,6 @@ function createTags(tempStorage) {
   });
 }
 
-
-/********************************************************************************** */
-//https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide/Grammar_and_types#d%c3%a9claration_de_variables
-/********************************************************************************** */
-
 function removeTags(closeTags, listTags) {
   closeTags.addEventListener("click", () => {
     //console.log(listTags);
@@ -268,6 +270,7 @@ function removeTags(closeTags, listTags) {
 }
 
 function placeholderChange(combo) {
+   
   if (combo1 != combo.input) {
     combo1.placeholder = "Ingredients ...";
   } else {
@@ -293,31 +296,29 @@ function placeholderChange(combo) {
 function displayList() {
   for (let combo of combos) {
     combo.input.addEventListener("click", () => {
-      // console.log(combo.list);
-
-      //replace placeholder input at click
+       //console.log(combo.list);
+      combo.input.style.borderRadius = "5px 5px 0px 0px";
+      //Replace placeholder input at click
       placeholderChange(combo);
 
-      //  Ouvre arrow au click sur combo
+      //Opens arrow on combo click
       combo.arrow.classList.toggle("toggleArrow");
 
-      //close the list/input on click on another combo
+      //Close the list/input on click on another combo
       removeList();
 
-      for (let listByCombo of combo.list) {
-        // console.log(listByCombo);
-        const parent = combo.input.closest("form");
-        createItemList(parent, listByCombo);
-        combo.input.style.borderRadius = "5px 5px 0 0";
-      }
+      //commenter------------
+      let liste = combo.input.closest("form").querySelector("ul");
+      liste.style.display = "flex";
+      combo.input.style.borderRadius = "5px 5px 0px 0px";
+      //-----------------------
 
       keyboardList();
     });
 
-
     combo.arrow.addEventListener("click", () => {
       removeList();
-      //ferme listItem au click sur arrow
+      //Close listItem on click on arrow
       combo.arrow.classList.toggle("toggleArrow");
       placeholderChange(!combo);
     });
@@ -332,33 +333,32 @@ displayList();
 function keyboardList() {
   for (let combo of combos) {
     combo.input.addEventListener("keyup", (e) => {
-      //retourner un nouveau placeholder par combo (exple "Rechercher un ingredient")
-      removeList(false);
+      combo.input.style.borderRadius = "5px 5px 0px 0px";
 
-      combo.input.style.borderRadius = "5px 5px 5px 5px";
 
-      for (let listByCombo of combo.list) {
-        if (
-          e.target.value.length >= 3 &&
-          listByCombo.toLowerCase().includes(combo.input.value.toLowerCase()) //&&
-          //combo.list.value != ""
-        ) {
-          const parent = combo.input.closest("form");
-          // console.log(parent);
-          createItemList(parent, listByCombo);
-          combo.input.style.borderRadius = "5px 5px 0 0";
-        };
-        if (e.target.value.length <= 1) {
-          placeholderChange(!combo);
-          
-        };
-        
-      } 
-      // if (e.target.value.length != 0 && e.target.value.length <= 1) {
-      //   combo.arrow.classList.toggle("toggleArrow");
-      //   console.log("xxx");
-      // }
+      //commenter------------------------------------
+      if (e.target.value.length >= 3 || e.target.value.length <= 2) {
+        const parent = combo.input.closest("form");
+        parent.querySelector("ul").innerHTML = "";
+        for (let listByCombo of combo.list) {
+           //  console.log(combo.list);
+          if (
+            listByCombo
+              .toLowerCase()
+              .includes(combo.input.value.toLowerCase()) &&
+            combo.list.value != ""
+          ) {
+            createItemList(parent, listByCombo);
+            combo.input.style.borderRadius = "5px 5px 0px 0px";
+            placeholderChange(combo);
+          }
+          // if (e.target.value.length <= 1 || listByCombo.value <= 3) {
+          //   placeholderChange(!combo);
+          // }
+        }
+      }
     });
+
     combos.forEach((close) => (close.input.value = ""));
   }
 }
@@ -367,12 +367,10 @@ function keyboardList() {
 
 //Closing items (ingredients, ustensiles, appareils) open
 function removeList(init = true) {
-  let items = document.querySelectorAll(".list-items");
-  items.forEach((item) => {
-    item.remove();
-    if (init) {
-      initCombo();
-    } //console.log(items);
+  initCombo();
+  let combos = document.querySelectorAll(".ulCombo");
+  combos.forEach((combo) => {
+    combo.style.display = "none"; 
   });
 }
 
@@ -380,7 +378,7 @@ function removeList(init = true) {
 
 //Combo Reset
 function initCombo() {
-  combos.forEach((close) => (close.input.value = ""));
+ //  combos.forEach((close) => (close.input.value = ""));
   for (let combo of combos) {
     combo.input.value = "";
     combo.input.style.borderRadius = "5px";

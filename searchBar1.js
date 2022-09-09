@@ -35,8 +35,6 @@ searchBar.addEventListener("keyup", (e) => {
       item.description.toLowerCase().includes(input.toLowerCase())
   );
 
-  console.log(filtersSearchBar.length);
-
   const errorSearch = document.querySelector(".error");
 
   if (!filtersSearchBar.length) {
@@ -117,11 +115,3 @@ searchBar.addEventListener("keyup", (e) => {
   }
   document.querySelector(".containerCards").innerHTML = suggestion;
 });
-
-/*********************************************************************************** */
-//clic à l'exterrieur de l'input
-//   window.addEventListener("click", () => {
-//     searchBar.value = "";
-//     errorSearch.style.display = "none";
-//   });
-/*********************************************************************************** */

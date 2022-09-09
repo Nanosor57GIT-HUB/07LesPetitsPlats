@@ -25,7 +25,7 @@ const searchBar = document.querySelector("#search");
 
 function searchBarAlgo() {
   searchBar.addEventListener("keyup", (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     const input = searchBar.value; //e.target.value
 
     let suggestion = "";
@@ -35,8 +35,6 @@ function searchBarAlgo() {
         item.name.toLowerCase().includes(input.toLowerCase()) ||
         item.description.toLowerCase().includes(input.toLowerCase())
     );
-
-    console.log(filtersSearchBar);
 
     const errorSearch = document.querySelector(".error");
 
@@ -120,14 +118,3 @@ function searchBarAlgo() {
   });
 }
 searchBarAlgo();
-
-/*********************************************************************************** */
-//clic à l'exterrieur de l'input
-//   window.addEventListener("click", () => {
-//     searchBar.value = "";
-//     errorSearch.style.display = "none";
-//   });
-/*********************************************************************************** */
-
-//https://github.com/Christelle74/ChristellePhilippe_7_08032022/blob/master/scripts/index.js
-//https://github.com/damevin/Les-petits-plats/tree/main/scripts/utils
