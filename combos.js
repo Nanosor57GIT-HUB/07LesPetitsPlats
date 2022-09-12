@@ -9,17 +9,18 @@ document.querySelector(".containerCombo").innerHTML = `
 
     <form autocomplete="off" >     
       <div class="boxIngredients comb">
-     
-        <input type="text" id="inputCombo1" class="inputCombo1 inputCombo" placeholder="Ingredients ..." maxlength="13" />
-        <img src="./assets/images/angle-up-solid.svg" class="ar1 arrow-down toggleArrow">
-      </div>
+        <input type="text" id="inputCombo1" class="inputCombo1 inputCombo" placeholder="Ingredients ..." maxlength="13" /> 
+        <div class="arrow-container"> 
+        <img src="./assets/images/angle-up-solid.svg" class="ar1 arrow-down toggleArrow">  
+        </div>
+        </div> 
       <ul id="ul" class="ulCombo bgListCombo1"></ul>
     </form>
           
     <form autocomplete="off">
       <div class="boxAppareils comb">
         <input type="text" id="inputCombo2" class="inputCombo2 inputCombo" placeholder="Appareils ..." maxlength="13" />
-        <img src="./assets/images/angle-up-solid.svg" class="ar2 arrow-down toggleArrow">
+        <img src="./assets/images/angle-up-solid.svg" class="ar2 arrow-down  toggleArrow">
       </div>
       <ul class="ulCombo bgListCombo2"></ul>
     </form>
@@ -27,7 +28,7 @@ document.querySelector(".containerCombo").innerHTML = `
     <form autocomplete="off">        
       <div class="boxUstensiles comb">
         <input type="text" id="inputCombo3" class="inputCombo3 inputCombo" placeholder="Ustensiles ..." maxlength="13" />
-        <img src="./assets/images/angle-up-solid.svg" class="ar3 arrow-down toggleArrow">
+        <img src="./assets/images/angle-up-solid.svg" class="ar3 arrow-down  toggleArrow">
       </div>
       <ul class="ulCombo bgListCombo3"></ul>
     </form>
@@ -45,6 +46,7 @@ let ar1 = document.querySelector(".ar1");
 let ar2 = document.querySelector(".ar2");
 let ar3 = document.querySelector(".ar3");
 let arrow = document.querySelector(".toggleArrow");
+let arrowDown = document.querySelector(".arrow-down");
 let errorCombo = document.querySelector(".element-undefined");
 
 //Create arrays
@@ -152,7 +154,6 @@ function createItemList(parent, listByCombo) {
     
     //Remove listItem
     removeList();
-
     //init placeholder
     for (let combo of combos) {
       placeholderChange(!combo);
@@ -174,9 +175,7 @@ function createItemList(parent, listByCombo) {
 /******************************************************************************* */
 
 function createTags(tempStorage) {
- //  for (let combo of combos) 
-  // combo.arrow.classList.toggle("toggleArrow");
-
+   
   tempStorage.ingredientStore.forEach((ing) => {
     //CreateTags ingredients
     let listTags = document.createElement("li");
@@ -184,7 +183,6 @@ function createTags(tempStorage) {
     listTags.classList.add("ingTag");
     listTags.innerText = ing;
     document.querySelector(".tags").append(listTags);
-   
 
     //CreateCloseTags ingredients
     let closeTags = document.createElement("img");
@@ -221,7 +219,7 @@ function createTags(tempStorage) {
     listTags.classList.add("ustTag");
     listTags.innerText = ust;
     document.querySelector(".tags").append(listTags);
-
+ 
     //CreateCloseTags ustensiles
     let closeTags = document.createElement("img");
     closeTags.src = "./assets/images/times-circle-regular.svg";
@@ -231,6 +229,8 @@ function createTags(tempStorage) {
     listTags.appendChild(closeTags);
     removeTags(closeTags, listTags);
   });
+
+ 
 }
 
 function removeTags(closeTags, listTags) {
@@ -266,29 +266,33 @@ function removeTags(closeTags, listTags) {
     listTags.remove();
     removeList();
     cardsSort();
+    
   });
 }
+for(let combo of combos) {
+let ted = combo.input}
 
 function placeholderChange(combo) {
-   
   if (combo1 != combo.input) {
     combo1.placeholder = "Ingredients ...";
   } else {
     combo1.placeholder = "Rechercher un ingrédient ...";
-  }
+  };
 
   if (combo2 != combo.input) {
     combo2.placeholder = "Appareils ...";
   } else {
     combo2.placeholder = "Rechercher un appareil ...";
-  }
+  };
 
   if (combo3 != combo.input) {
     combo3.placeholder = "Ustensiles ...";
   } else {
     combo3.placeholder = "Rechercher un ustensile ...";
-  }
+  };
 }
+
+
 
 /********************************************************************************* */
 
@@ -296,7 +300,7 @@ function placeholderChange(combo) {
 function displayList() {
   for (let combo of combos) {
     combo.input.addEventListener("click", () => {
-       //console.log(combo.list);
+      //console.log(combo.list);
       combo.input.style.borderRadius = "5px 5px 0px 0px";
       //Replace placeholder input at click
       placeholderChange(combo);
@@ -308,12 +312,14 @@ function displayList() {
       removeList();
 
       //commenter------------
-      let liste = combo.input.closest("form").querySelector("ul");
+     
+        let liste = combo.input.closest("form").querySelector("ul");
       liste.style.display = "flex";
       combo.input.style.borderRadius = "5px 5px 0px 0px";
-      //-----------------------
+     
+        //-----------------------
 
-      keyboardList();
+        keyboardList();
     });
 
     combo.arrow.addEventListener("click", () => {
@@ -322,6 +328,7 @@ function displayList() {
       combo.arrow.classList.toggle("toggleArrow");
       placeholderChange(!combo);
     });
+    
   }
 }
 
@@ -355,6 +362,7 @@ function keyboardList() {
           // if (e.target.value.length <= 1 || listByCombo.value <= 3) {
           //   placeholderChange(!combo);
           // }
+          
         }
       }
     });
@@ -372,6 +380,7 @@ function removeList(init = true) {
   combos.forEach((combo) => {
     combo.style.display = "none"; 
   });
+ 
 }
 
 /********************************************************************************* */
@@ -387,3 +396,8 @@ function initCombo() {
 }
 
 /******************************************************************************** */
+// for (let combo of combos) {
+//   combo.input.addEventListener("click", () => {
+//     combo.arrow.classList.toggle("toggleArrow");
+//   });
+// }

@@ -24,9 +24,9 @@ chercher « tarte aux pommes », « poisson », etc.</p>`;
 const searchBar = document.querySelector("#search");
 
 searchBar.addEventListener("keyup", (e) => {
-  console.log(e.target.value);
+ 
   const input = searchBar.value; //e.target.value
-
+ 
   let suggestion = "";
 
   const filtersSearchBar = arrayRecipes.filter(

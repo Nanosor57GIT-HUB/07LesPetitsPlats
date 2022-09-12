@@ -1,5 +1,4 @@
 function cardsSort() {
-
   let comboCard = "";
 
   //Create storage array of sorted elements when displaying tags
@@ -67,7 +66,7 @@ function cardsSort() {
     ingredientStore.forEach((iS) => {
       if (!ingRecipe.includes(iS)) {
         ok = false;
-         // errorCombo.style.color = "#2f83f5";
+        // errorCombo.style.color = "#2f83f5";
       }
     });
     ustensileStore.forEach((uS) => {
@@ -130,6 +129,7 @@ function cardsSort() {
 
   //updates each category by comparison
   recipesOk.forEach((r) => {
+    console.log(recipesOk);
     if (
       !listApp.includes(r.appliance) &&
       !appareilStore.includes(r.appliance)
@@ -143,7 +143,7 @@ function cardsSort() {
       }
     });
 
-    r.ingredients.forEach((rI) => {  
+    r.ingredients.forEach((rI) => {
       if (
         !listIng.includes(rI.ingredient) &&
         !ingredientStore.includes(rI.ingredient)
@@ -176,4 +176,8 @@ function cardsSort() {
   listUst.forEach((ust) => {
     createItemList(forms[2], ust);
   });
+
+   
+ 
+  
 }

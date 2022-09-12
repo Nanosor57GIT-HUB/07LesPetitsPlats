@@ -104,15 +104,22 @@ html {
 .containerCards {
   display: flex;
   flex-wrap: wrap;
-  width: 88%;
+  width: 89%;
   justify-content: space-between;
   margin: 0 auto;
+}
+@media screen and (max-width: 1328px) {  /*945*/
+  .containerCards {
+    justify-content: space-evenly;
+  /* justify-content: center;*/
+  }
 }
 
 .card {
   width: 380px;
   height: 364px;
   margin: 30px 0;
+  padding: 2px;
   border-radius: 7px; 
 }
 
@@ -285,8 +292,7 @@ html {
 }
 
 /*combos*/
-.wrapperCombo {
-  
+.wrapperCombo { 
   position: relative;
   display: flex;
   flex-direction: column;
@@ -301,18 +307,29 @@ html {
 }
 
 .combos {
-  display: flex;
+  display: flex; 
   width: 100%;
   min-width: 50%;
+  
 }
+
 .combos-spaces {
   display: flex;
   justify-content: space-between;
-  min-width: 50%;
+  flex-wrap: wrap;
+  min-width: 41%;
   max-width: 100%;
+  height: 70px;
 }
+@media (max-width: 650px) { 
+  .combos-spaces {
+    justify-content: space-evenly;
+height: 250px;
+z-index: 10;
+}
+ }
 
-form {  
+form { 
   display: flex;
   flex-direction: column;
   width: auto;
@@ -323,7 +340,7 @@ form {
 #inputCombo1[type="text"],
 #inputCombo2[type="text"],
 #inputCombo3[type="text"] {
-  width: 160px;
+  width: 100px;
   min-width: 100%;
   height: 69px;
   padding-left: 8px;
@@ -348,12 +365,17 @@ form {
 .boxAppareils,
 .boxUstensiles {
   position: relative;
+  display: flex;
   width: auto;
   max-width: 100%;
   min-width: 170px;
   padding-right: 10px; 
 }
 
+.arrow-container {
+  width: 25px;
+  height: 25px;
+}
 .arrow-down {
   position: absolute;
   top: 0;
@@ -379,9 +401,12 @@ form {
 #inputCombo2:focus::placeholder,
 #inputCombo3:focus::placeholder {
   color: #ffffff64;
+  width: 85%;
 }
 
 .ulCombo { 
+  /* position: absolute; */
+  top: 70px; 
   list-style: none;
   display: flex;
   flex-direction: row;
@@ -393,11 +418,12 @@ form {
   padding: 0;
   color: #ffffff;
   border-radius: 0 0 5px 5px; 
-  z-index: 10000;
+  z-index: 10;
 }
 
 .bgListCombo1 {
   background-color: #2f83f5;
+  
 }
 .bgListCombo2 {
   background-color: #68d9a5;
