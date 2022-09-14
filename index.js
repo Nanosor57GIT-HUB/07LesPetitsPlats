@@ -2,17 +2,19 @@ const arrayRecipes = recipes;
 
 let cardRecipes = "";
 
+//Loops over arrayRecipes (recipes API) to retrieve items
 arrayRecipes.forEach((recipe) => {
   names = recipe.name;
   time = recipe.time;
   description = recipe.description;
 
+  //Creation of a variable with the conditions on ingredients
   let detailsIngredients = "";
 
   ingredients = recipe.ingredients;
   ingredients.forEach((ing) => {
     ingredient = ing.ingredient;
-    //     console.log(ingredient);
+
     quantity = ing.quantity;
     unit = ing.unit;
 
@@ -46,8 +48,6 @@ arrayRecipes.forEach((recipe) => {
     )}</li>`;
   });
 
-  //Je boucle les cards
-
   cardRecipes += `    <div class="card">
               <div class="photosPlats">
               <img src="./assets/images/logo_lespetitsplats.png" class="photoPlat" />
@@ -76,7 +76,3 @@ arrayRecipes.forEach((recipe) => {
 
   document.querySelector(".containerCards").innerHTML = cardRecipes;
 });
-
-//maquette : https://www.figma.com/file/xqeE1ZKlHUWi2Efo8r73NK
-
-

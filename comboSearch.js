@@ -60,9 +60,10 @@ function cardsSort() {
       )}</li>`;
     });
 
-    //True map display
+    //Basic display of cards on true
     let ok = true;
 
+    //Loop on storage for recipes not containing .... (by elimination)
     ingredientStore.forEach((iS) => {
       if (!ingRecipe.includes(iS)) {
         ok = false;
@@ -82,7 +83,7 @@ function cardsSort() {
       }
     });
 
-    //error messages if no match
+    //error messages if no match tags
     if (comboCard != "") {
       errorCombo.style.display = "none";
     } else {
@@ -129,7 +130,7 @@ function cardsSort() {
 
   //updates each category by comparison
   recipesOk.forEach((r) => {
-    console.log(recipesOk);
+    
     if (
       !listApp.includes(r.appliance) &&
       !appareilStore.includes(r.appliance)
@@ -158,7 +159,7 @@ function cardsSort() {
   listUst.sort();
   listApp.sort();
 
-  //Returns remaining elements on combos
+  //Loops and returns remaining items on combos
   let forms = document.querySelectorAll("form");
   forms.forEach((f) => {
     f.querySelector("ul").innerHTML = "";
@@ -168,6 +169,7 @@ function cardsSort() {
 
   //Updates each list on its designated combo
   listIng.forEach((ing) => {
+    //outputs the list of remaining ingredients updates, by combo
     createItemList(forms[0], ing);
   });
   listApp.forEach((app) => {
@@ -176,8 +178,4 @@ function cardsSort() {
   listUst.forEach((ust) => {
     createItemList(forms[2], ust);
   });
-
-   
- 
-  
 }

@@ -46,7 +46,6 @@ let ar1 = document.querySelector(".ar1");
 let ar2 = document.querySelector(".ar2");
 let ar3 = document.querySelector(".ar3");
 let arrow = document.querySelector(".toggleArrow");
-let arrowDown = document.querySelector(".arrow-down");
 let errorCombo = document.querySelector(".element-undefined");
 
 //Create arrays
@@ -54,7 +53,7 @@ let components = []; // =>ingredients
 let accessories = []; // =>ustensiles
 let equipments = []; // =>appareils
 
-//gat datas in api
+//get datas in API
 function getDataCombo() {
   //get arrays ingrédients, appareils et ustensiles
   recipes.forEach((recipe) => {
@@ -102,10 +101,10 @@ let combos = [
 ];
 //sort 3 objects with combo, the arrow and the sorted list, for each category.
 
-//commenter------------
+
 for (let combo of combos) {
   for (let listByCombo of combo.list) {
-    // console.log(listByCombo);
+     console.log(listByCombo);
     const parent = combo.input.closest("form");
     createItemList(parent, listByCombo);
   }
@@ -167,7 +166,6 @@ function createItemList(parent, listByCombo) {
 
   //Display the value of each combo item clicked
   listItem.innerText = word;
-  // console.log(word);
 
   parent.querySelector(".ulCombo").appendChild(listItem);
 }
@@ -269,12 +267,11 @@ function removeTags(closeTags, listTags) {
     
   });
 }
-for(let combo of combos) {
-let ted = combo.input}
 
+//Change the placeholder
 function placeholderChange(combo) {
   if (combo1 != combo.input) {
-    combo1.placeholder = "Ingredients ...";
+    combo1.placeholder = "Ingredients ..."; 
   } else {
     combo1.placeholder = "Rechercher un ingrédient ...";
   };
@@ -306,26 +303,22 @@ function displayList() {
       placeholderChange(combo);
 
       //Opens arrow on combo click
-      combo.arrow.classList.toggle("toggleArrow");
+      combo.arrow.classList.toggle("toggleArrow"); 
 
       //Close the list/input on click on another combo
       removeList();
-
-      //commenter------------
-     
+   
         let liste = combo.input.closest("form").querySelector("ul");
       liste.style.display = "flex";
       combo.input.style.borderRadius = "5px 5px 0px 0px";
-     
-        //-----------------------
 
         keyboardList();
     });
 
     combo.arrow.addEventListener("click", () => {
-      removeList();
       //Close listItem on click on arrow
       combo.arrow.classList.toggle("toggleArrow");
+      removeList();
       placeholderChange(!combo);
     });
     
@@ -342,13 +335,12 @@ function keyboardList() {
     combo.input.addEventListener("keyup", (e) => {
       combo.input.style.borderRadius = "5px 5px 0px 0px";
 
-
-      //commenter------------------------------------
+      //Returns the elements of a list after 3 characters (includes)
       if (e.target.value.length >= 3 || e.target.value.length <= 2) {
         const parent = combo.input.closest("form");
         parent.querySelector("ul").innerHTML = "";
+
         for (let listByCombo of combo.list) {
-           //  console.log(combo.list);
           if (
             listByCombo
               .toLowerCase()
@@ -359,10 +351,6 @@ function keyboardList() {
             combo.input.style.borderRadius = "5px 5px 0px 0px";
             placeholderChange(combo);
           }
-          // if (e.target.value.length <= 1 || listByCombo.value <= 3) {
-          //   placeholderChange(!combo);
-          // }
-          
         }
       }
     });
@@ -396,8 +384,12 @@ function initCombo() {
 }
 
 /******************************************************************************** */
+
+
+//vérifier pour jongler sur arrow et inverser
 // for (let combo of combos) {
-//   combo.input.addEventListener("click", () => {
-//     combo.arrow.classList.toggle("toggleArrow");
+//   combo.input.addEventListener("click", (e) => {
+//   e =  combo.arrow.classList.toggle("toggleArrow");
 //   });
 // }
+

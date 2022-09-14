@@ -24,12 +24,12 @@ chercher « tarte aux pommes », « poisson », etc.</p>`;
 const searchBar = document.querySelector("#search");
 
 function searchBarAlgo() {
+  //Keyboard search
   searchBar.addEventListener("keyup", (e) => {
-    // console.log(e.target.value);
     const input = searchBar.value; //e.target.value
-
+    //Return of the DOM
     let suggestion = "";
-
+    //Filter recipes by name/description (automatically contains ingredients)
     const filtersSearchBar = arrayRecipes.filter(
       (item) =>
         item.name.toLowerCase().includes(input.toLowerCase()) ||
@@ -37,15 +37,17 @@ function searchBarAlgo() {
     );
 
     const errorSearch = document.querySelector(".error");
-
+    //Returns an error if the recipe does not exist
     if (!filtersSearchBar.length) {
       errorSearch.style.display = "block";
     } else if (e.target.value.length <= 3) {
       errorSearch.style.display = "none";
     }
-
+    //Display of recipes sorted after 3 characters on the keyboard
     if (filtersSearchBar.length || e.target.value.length >= 3) {
+      //Loop over elements of arrayRecipes (recipes API)
       for (let searchBar of filtersSearchBar) {
+        
         let detailsIngredients = "";
 
         searchBar.ingredients.forEach((ing) => {
