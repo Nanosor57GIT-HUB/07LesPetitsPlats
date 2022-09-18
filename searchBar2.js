@@ -44,7 +44,7 @@ function searchBarAlgo() {
       errorSearch.style.display = "none";
     }
     //Display of recipes sorted after 3 characters on the keyboard
-    if (filtersSearchBar.length || e.target.value.length >= 3) {
+    if (e.target.value.length >= 3 || e.target.value.length == 0) {
       //Loop over elements of arrayRecipes (recipes API)
       for (let searchBar of filtersSearchBar) {
         
