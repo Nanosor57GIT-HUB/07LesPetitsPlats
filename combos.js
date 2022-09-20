@@ -300,10 +300,7 @@ function displayList() {
       //console.log(combo.list);
       combo.input.style.borderRadius = "5px 5px 0px 0px";
       //Replace placeholder input at click
-      placeholderChange(combo);
-
-      //Opens arrow on combo click
-      combo.arrow.classList.toggle("toggleArrow"); 
+      placeholderChange(combo); 
 
       //Close the list/input on click on another combo
       removeList();
@@ -313,14 +310,7 @@ function displayList() {
       combo.input.style.borderRadius = "5px 5px 0px 0px";
 
         keyboardList();
-    });
-
-    combo.arrow.addEventListener("click", () => {
-      //Close listItem on click on arrow
-      combo.arrow.classList.toggle("toggleArrow");
-      removeList();
-      placeholderChange(!combo);
-    });
+    }); 
     
   }
 }
@@ -386,10 +376,5 @@ function initCombo() {
 /******************************************************************************** */
 
 
-//vérifier pour jongler sur arrow et inverser
-// for (let combo of combos) {
-//   combo.input.addEventListener("click", (e) => {
-//   e =  combo.arrow.classList.toggle("toggleArrow");
-//   });
-// }
+
 
