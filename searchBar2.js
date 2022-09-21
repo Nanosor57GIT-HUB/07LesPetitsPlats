@@ -115,8 +115,9 @@ function searchBarAlgo() {
            
           </div>`;
       }
+      document.querySelector(".containerCards").innerHTML = suggestion;
     }
-    document.querySelector(".containerCards").innerHTML = suggestion;
+    
   });
 }
 searchBarAlgo();
