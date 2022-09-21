@@ -114,6 +114,7 @@ searchBar.addEventListener("keyup", (e) => {
            
           </div>`;
     });
+    document.querySelector(".containerCards").innerHTML = suggestion;
   }
-  document.querySelector(".containerCards").innerHTML = suggestion;
+  
 });
